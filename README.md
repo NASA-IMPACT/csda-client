@@ -28,8 +28,6 @@ cd csda-client
 uv sync
 ```
 
-Make sure to clear the notebook outputs before committing, to make sure you don't store any credentials.
-
 ## License
 
 MIT
