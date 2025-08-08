@@ -1,9 +1,11 @@
 from __future__ import annotations
 
 import logging
+from pathlib import Path
 from typing import Any, Literal
 from urllib.parse import parse_qs, urlparse
 
+from pystac import Item
 from requests import Response, Session
 from requests.auth import AuthBase, HTTPBasicAuth
 
@@ -52,6 +54,22 @@ class CsdaClient:
             data=data,
             allow_redirects=allow_redirects,
         )
+
+    def verify(self) -> str:
+        """Verifies the currently logged in user, returning the response"""
+        response = self.request("/api/v1/auth/verify", method="GET")
+        return response.json()
+
+    def download(self, item: Item, asset_key: str, path: Path) -> None:
+        """Downloads a single asset from a STAC item to a local file."""
+        request_path = f"/api/v2/download/{item.collection_id}/{item.id}/{asset_key}"
+        response = self.request(
+            path=request_path, method="GET", allow_redirects=True, stream=True
+        )
+        with open(path, "wb") as f:
+            for chunk in response.iter_content(1024 * 8):
+                if chunk:
+                    f.write(chunk)
 
     def request(
         self,
