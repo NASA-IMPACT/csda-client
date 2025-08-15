@@ -1,30 +1,35 @@
 [project]
 name = "csda-client"
-version = "1.0.1"
+version = "0.1.0"
 description = "API client for CSDA services"
 readme = "README.md"
 requires-python = ">=3.10"
-dependencies = ["requests>=2.32.3"]
+dependencies = [
+    "contextily>=1.6.2",
+    "httpx>=0.28.1",
+    "pydantic>=2.11.7",
+]
 
 [project.urls]
 repository = "https://github.com/NASA-IMPACT/csda-client"
 
 [dependency-groups]
-dev = [
-    "contextily>=1.6.2",
+dev = ["mypy>=1.15.0", "pytest>=8.3.5", "ruff>=0.11.9", "pytest-dotenv>=0.5.2"]
+docs = [
     "geopandas>=1.0.1",
     "ipykernel>=6.29.5",
-    "mypy>=1.15.0",
     "pystac-client>=0.8.6",
-    "pytest>=8.3.5",
-    "ruff>=0.11.9",
     "humanize>=4.12.3",
     "tabulate>=0.9.0",
-    "types-requests>=2.32.0.20250515",
-    "tqdm>=4.67.1",
     "cql2>=0.3.7",
     "jinja2>=3.1.6",
+    "basemap>=2.0.0",
+    "rasterio>=1.4.3",
+    "contextily>=1.6.2",
 ]
+
+[tool.uv]
+default-groups = ["dev", "docs"]
 
 [tool.mypy]
 files = "src/**/*.py,tests/**/*.py"
