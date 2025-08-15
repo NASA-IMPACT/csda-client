@@ -44,7 +44,7 @@ class CsdaClient:
         """
         self.client = Client()
         self.url = url
-        self.username = None
+        self.username: str | None = None
 
     def __enter__(self) -> CsdaClient:
         return self
