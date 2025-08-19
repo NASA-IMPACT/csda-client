@@ -21,6 +21,6 @@ def test_download(client: CsdaClient, tmp_path: Path) -> None:
 
 
 @pytest.mark.with_earthdata_login
-def test_profile(client: CsdaClient, earthdata_username: str) -> None:
-    profile = client.profile()
+def test_profile(basic_auth_client: CsdaClient, earthdata_username: str) -> None:
+    profile = basic_auth_client.profile(earthdata_username)
     assert profile.earthdata_username == earthdata_username
