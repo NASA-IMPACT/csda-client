@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import datetime
 from enum import Enum
-from typing import Optional
 
 from pydantic import BaseModel
 
@@ -14,7 +13,7 @@ class QuotaUnit(Enum):
 
 class Profile(BaseModel):
     earthdata_username: str
-    title: Optional[str] = None
+    title: str | None = None
     first_name: str
     last_name: str
     funding_agency: str
