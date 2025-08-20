@@ -2,6 +2,7 @@ import os
 from typing import Any, Iterator
 
 import pytest
+from httpx import BasicAuth, NetRCAuth
 from pydantic import SecretStr
 from pytest import Config, Parser
 
@@ -25,12 +26,18 @@ def earthdata_password() -> SecretStr:
 
 
 @pytest.fixture(scope="session")
-def client(
+def basic_auth_client(
     earthdata_username: str, earthdata_password: SecretStr
 ) -> Iterator[CsdaClient]:
     with CsdaClient.open(
-        earthdata_username, earthdata_password.get_secret_value()
+        BasicAuth(earthdata_username, earthdata_password.get_secret_value())
     ) as client:
+        yield client
+
+
+@pytest.fixture(scope="session")
+def client() -> Iterator[CsdaClient]:
+    with CsdaClient.open(NetRCAuth()) as client:
         yield client
 
 
