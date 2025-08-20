@@ -34,6 +34,7 @@ EARTHDATA_USERNAME=your-user-name
 EARTHDATA_PASSWORD=your-password
 ```
 
+We also allow `.netrc` authentication, so set that up per [these instructions](https://nsidc.org/data/user-resources/help-center/creating-netrc-file-earthdata-login)
 Then:
 
 ```sh
