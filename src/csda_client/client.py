@@ -10,7 +10,7 @@ from urllib.parse import parse_qs, urljoin, urlparse
 from httpx import Auth, Client, Response
 from pystac import Item
 
-from .models import Profile
+from .models import CreateTaskingProposal, Product, Profile, TaskingProposal, Vendor
 
 logger = logging.getLogger(__name__)
 
@@ -82,6 +82,33 @@ class CsdaClient:
                 for chunk in response.iter_bytes(1024 * 8):
                     if chunk:
                         f.write(chunk)
+
+    def vendors(self) -> Iterator[Vendor]:
+        """Iterates over all vendors."""
+        response = self.request(method="GET", path="/signup/vendors/api/vendors/")
+        for value in response.json():
+            yield Vendor.model_validate(value)
+
+    def products(self, vendor_id: int) -> Iterator[Product]:
+        """Iterates over all products for a given vendor id."""
+        response = self.request(
+            method="GET", path=f"/signup/vendors/api/products/?vendor={vendor_id}"
+        )
+        for value in response.json():
+            yield Product.model_validate(value)
+
+    def create_tasking_proposal(
+        self, tasking_proposal: CreateTaskingProposal, submit: bool
+    ) -> TaskingProposal:
+        path = "/signup/tasking/api/proposals"
+        if submit:
+            path += "?submit=true"
+        response = self.request(
+            method="POST",
+            path=path,
+            json=tasking_proposal.model_dump(mode="json"),
+        )
+        return TaskingProposal.model_validate(response.json())
 
     def get_url(self, path: str) -> str:
         """Builds a full URL from a path."""
