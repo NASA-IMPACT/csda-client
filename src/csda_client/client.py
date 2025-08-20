@@ -1,31 +1,39 @@
 from __future__ import annotations
 
 import logging
+from contextlib import contextmanager
 from pathlib import Path
-from typing import Any, Literal
-from urllib.parse import parse_qs, urlparse
+from types import TracebackType
+from typing import Any, Iterator, Literal
+from urllib.parse import parse_qs, urljoin, urlparse
 
+from httpx import Auth, BasicAuth, Client, Response
 from pystac import Item
-from requests import Response, Session
-from requests.auth import AuthBase, HTTPBasicAuth
 
-from .exceptions import AuthError
+from .models import Profile
 
 logger = logging.getLogger(__name__)
 
-METHOD = Literal["GET"] | Literal["POST"]
+Method = Literal["GET"] | Literal["POST"]
 
 STAGING_URL = "https://csdap-staging.ds.io"
 PRODUCTION_URL = "https://csdap.earthdata.nasa.gov"
 
 
+class AuthError(Exception):
+    """A custom exception that we raise when something bad happens during authentication."""
+
+
 class CsdaClient:
+    """A client for interacting with CSDA services."""
+
     @classmethod
     def open(
         cls, username: str, password: str, url: str = PRODUCTION_URL
     ) -> CsdaClient:
-        """Opens a logged-in CSDA client."""
+        """Opens and logs in a CSDA client."""
         client = CsdaClient(url)
+        logging.info(f"Logging in to Earthdata as {username}")
         client.login(username, password)
         return client
 
@@ -34,85 +42,70 @@ class CsdaClient:
 
         Use `login` to get an auth token.
         """
-        self.session = Session()
+        self.client = Client()
         self.url = url
+        self.username: str | None = None
 
-    def _request_auth(
+    def __enter__(self) -> CsdaClient:
+        return self
+
+    def __exit__(
         self,
-        path: str,
-        method: METHOD,
-        *,
-        params: dict[str, Any] | None = None,
-        data: dict[str, Any] | None = None,
-        allow_redirects: bool = True,
-    ) -> Response:
-        """Sends a request to an auth endpoint."""
-        return self.request(
-            f"/api/v1/auth/{path.lstrip('/')}",
-            method,
-            params=params,
-            data=data,
-            allow_redirects=allow_redirects,
-        )
+        exc_type: type[Exception] | None,
+        exc_val: BaseException | None,
+        exc_tb: TracebackType | None,
+    ) -> None:
+        self.client.close()
 
     def verify(self) -> str:
-        """Verifies the currently logged in user, returning the response"""
-        response = self.request("/api/v1/auth/verify", method="GET")
+        """Verifies the currently logged in user, returning the response."""
+        response = self.request(path="/api/v1/auth/verify", method="GET")
         return response.json()
 
-    def download(self, item: Item, asset_key: str, path: Path) -> None:
-        """Downloads a single asset from a STAC item to a local file."""
-        request_path = f"/api/v2/download/{item.collection_id}/{item.id}/{asset_key}"
+    def profile(self, username: str | None = None) -> Profile:
+        if username is None and self.username is None:
+            raise ValueError("No username provided, and the client is not logged in.")
         response = self.request(
-            path=request_path, method="GET", allow_redirects=True, stream=True
+            path=f"/signup/api/users/{username or self.username}/",
+            method="GET",
         )
-        with open(path, "wb") as f:
-            for chunk in response.iter_content(1024 * 8):
-                if chunk:
-                    f.write(chunk)
+        return Profile.model_validate(response.json())
 
-    def request(
-        self,
-        path: str,
-        method: METHOD,
-        *,
-        params: dict[str, Any] | None = None,
-        data: dict[str, Any] | None = None,
-        allow_redirects: bool = True,
-        auth: AuthBase | None = None,
-        json: dict[str, Any] | None = None,
-        stream: bool | None = None,
-    ) -> Response:
-        """Sends a request.
+    def download_item(self, item: Item, asset_key: str, path: Path) -> None:
+        """Downloads a single asset from a STAC item to a local file."""
+        if item.collection_id:
+            self.download(item.collection_id, item.id, asset_key, path)
+        else:
+            raise ValueError("Cannot download an item without a collection id")
 
-        This is useful to re-use an auth token, e.g. retrieved via `CsdaClient.login()`.
-        """
-        url = self.url.rstrip("/") + "/" + path.lstrip("/")
-        response = self.session.request(
-            method=method,
-            url=url,
-            params=params,
-            data=data,
-            allow_redirects=allow_redirects,
-            auth=auth,
-            json=json,
-            stream=stream,
-        )
-        response.raise_for_status()
-        return response
+    def download(
+        self, collection_id: str, item_id: str, asset_key: str, path: Path
+    ) -> None:
+        """Downloads an asset."""
+        request_path = f"/api/v2/download/{collection_id}/{item_id}/{asset_key}"
+        with self.stream(method="GET", path=request_path) as response:
+            with open(path, "wb") as f:
+                for chunk in response.iter_bytes(1024 * 8):
+                    if chunk:
+                        f.write(chunk)
+
+    def get_url(self, path: str) -> str:
+        """Builds a full URL from a path."""
+        return urljoin(self.url, path)
 
     def login(self, username: str, password: str) -> None:
         """Log in this client with an Earthdata username and password.
 
         The retrieved token is saved in the session headers.
 
-        Needless to say, you shouldn't be saving your username or password in code.
+        Needless to say, you shouldn't be saving your password in code.
         """
         response = self._request_auth(
-            "/",
+            "",
             method="GET",
             params={"redirect_uri": self.url},
-            allow_redirects=False,
+            follow_redirects=False,
+            raise_for_status=False,
         )
         if response.status_code not in (302, 307):
             raise AuthError(
@@ -127,11 +120,10 @@ class CsdaClient:
             )
 
         logger.debug("Authenticating with Earthdata Login...")
-        response = self.session.request(
+        response = self.client.request(
             url=edl_url,
             method="GET",
-            auth=HTTPBasicAuth(username, password),
-            allow_redirects=False,
+            auth=BasicAuth(username, password),
         )
         if response.status_code not in (302, 307):
             raise AuthError(
@@ -162,7 +154,66 @@ class CsdaClient:
 
         logger.debug("Exchanging authorization code for access token...")
         code = querystring["code"]
-        response = self._request_auth("/token", method="POST", data={"code": code})
+        response = self._request_auth("token", method="POST", data={"code": code})
         token = response.json()["access_token"]
 
-        self.session.headers["Authorization"] = f"Bearer {token}"
+        self.username = username
+        self.client.headers["Authorization"] = f"Bearer {token}"
+
+    def request(
+        self,
+        method: Method,
+        path: str,
+        *,
+        params: dict[str, Any] | None = None,
+        data: dict[str, Any] | None = None,
+        follow_redirects: bool = False,
+        auth: Auth | None = None,
+        json: dict[str, Any] | None = None,
+        raise_for_status: bool = True,
+    ) -> Response:
+        """Sends a request and returns its response."""
+        response = self.client.request(
+            method=method,
+            url=self.get_url(path),
+            params=params,
+            data=data,
+            follow_redirects=follow_redirects,
+            auth=auth,
+            json=json,
+        )
+        if raise_for_status:
+            response.raise_for_status()
+        return response
+
+    @contextmanager
+    def stream(self, method: Method, path: str) -> Iterator[Response]:
+        """Streams a response.
+
+        This method raises an error on an unsuccessful request.
+        """
+        with self.client.stream(
+            method=method, url=self.get_url(path), follow_redirects=True
+        ) as response:
+            response.raise_for_status()
+            yield response
+
+    def _request_auth(
+        self,
+        path: str,
+        method: Method,
+        *,
+        params: dict[str, Any] | None = None,
+        data: dict[str, Any] | None = None,
+        follow_redirects: bool = False,
+        raise_for_status: bool = True,
+    ) -> Response:
+        """Sends a request to an auth endpoint."""
+        return self.request(
+            path=f"/api/v1/auth/{path}",
+            method=method,
+            params=params,
+            data=data,
+            follow_redirects=follow_redirects,
+            raise_for_status=raise_for_status,
+        )

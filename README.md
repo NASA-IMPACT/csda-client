@@ -8,10 +8,7 @@ An API client for [CSDA](https://csdap.earthdata.nasa.gov/).
 python -m pip install git+https://github.com/nasa-impact/csda-client
 ```
 
-See our notebooks for examples of how to use the client:
-
-- [General usage](./docs/client.ipynb)
-- [Data Search and Download](./docs/download.ipynb)
+We have [a notebook](./docs/search-and-download.ipynb) that demonstrates how to use the client:
 
 ## Issues
 
@@ -26,6 +23,21 @@ Then:
 git clone git@github.com:NASA-IMPACT/csda-client.git
 cd csda-client
 uv sync
+```
+
+Many of our tests run requests against the production system, which requires an [Earthdata login](https://urs.earthdata.nasa.gov/).
+These are skipped by default.
+To enable them, create a `.env` file with the following values:
+
+```env
+EARTHDATA_USERNAME=your-user-name
+EARTHDATA_PASSWORD=your-password
+```
+
+Then:
+
+```sh
+uv run pytest --with-earthdata-login
 ```
 
 ## License
