@@ -8,7 +8,7 @@ An API client for [CSDA](https://csdap.earthdata.nasa.gov/).
 python -m pip install git+https://github.com/nasa-impact/csda-client
 ```
 
-We have [a notebook](./docs/search-and-download.ipynb) that demonstrates how to use the client:
+We have [a notebook](./docs/search-and-download.ipynb) that demonstrates how to use the client.
 
 ## Issues
 

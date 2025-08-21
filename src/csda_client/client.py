@@ -7,10 +7,10 @@ from types import TracebackType
 from typing import Any, Iterator, Literal
 from urllib.parse import parse_qs, urljoin, urlparse
 
-from httpx import Auth, BasicAuth, Client, Response
+from httpx import Auth, Client, Response
 from pystac import Item
 
-from .models import Profile
+from .models import CreateTaskingProposal, Product, Profile, TaskingProposal, Vendor
 
 logger = logging.getLogger(__name__)
 
@@ -28,13 +28,10 @@ class CsdaClient:
     """A client for interacting with CSDA services."""
 
     @classmethod
-    def open(
-        cls, username: str, password: str, url: str = PRODUCTION_URL
-    ) -> CsdaClient:
+    def open(cls, auth: Auth, url: str = PRODUCTION_URL) -> CsdaClient:
         """Opens and logs in a CSDA client."""
         client = CsdaClient(url)
-        logging.info(f"Logging in to Earthdata as {username}")
-        client.login(username, password)
+        client.login(auth)
         return client
 
     def __init__(self, url: str = PRODUCTION_URL) -> None:
@@ -44,7 +41,6 @@ class CsdaClient:
         """
         self.client = Client()
         self.url = url
-        self.username: str | None = None
 
     def __enter__(self) -> CsdaClient:
         return self
@@ -62,11 +58,9 @@ class CsdaClient:
         response = self.request(path="/api/v1/auth/verify", method="GET")
         return response.json()
 
-    def profile(self, username: str | None = None) -> Profile:
-        if username is None and self.username is None:
-            raise ValueError("No username provided, and the client is not logged in.")
+    def profile(self, username: str) -> Profile:
         response = self.request(
-            path=f"/signup/api/users/{username or self.username}/",
+            path=f"/signup/api/users/{username}/",
             method="GET",
         )
         return Profile.model_validate(response.json())
@@ -89,16 +83,41 @@ class CsdaClient:
                     if chunk:
                         f.write(chunk)
 
+    def vendors(self) -> Iterator[Vendor]:
+        """Iterates over all vendors."""
+        response = self.request(method="GET", path="/signup/vendors/api/vendors/")
+        for value in response.json():
+            yield Vendor.model_validate(value)
+
+    def products(self, vendor_id: int) -> Iterator[Product]:
+        """Iterates over all products for a given vendor id."""
+        response = self.request(
+            method="GET", path=f"/signup/vendors/api/products/?vendor={vendor_id}"
+        )
+        for value in response.json():
+            yield Product.model_validate(value)
+
+    def create_tasking_proposal(
+        self, tasking_proposal: CreateTaskingProposal, submit: bool
+    ) -> TaskingProposal:
+        path = "/signup/tasking/api/proposals"
+        if submit:
+            path += "?submit=true"
+        response = self.request(
+            method="POST",
+            path=path,
+            json=tasking_proposal.model_dump(mode="json"),
+        )
+        return TaskingProposal.model_validate(response.json())
+
     def get_url(self, path: str) -> str:
         """Builds a full URL from a path."""
         return urljoin(self.url, path)
 
-    def login(self, username: str, password: str) -> None:
-        """Log in this client with an Earthdata username and password.
+    def login(self, auth: Auth) -> None:
+        """Log in this client with authentication.
 
         The retrieved token is saved in the session headers.
-
-        Needless to say, you shouldn't be saving your password in code.
         """
         response = self._request_auth(
             "",
@@ -120,11 +139,7 @@ class CsdaClient:
             )
 
         logger.debug("Authenticating with Earthdata Login...")
-        response = self.client.request(
-            url=edl_url,
-            method="GET",
-            auth=BasicAuth(username, password),
-        )
+        response = self.client.request(url=edl_url, method="GET", auth=auth)
         if response.status_code not in (302, 307):
             raise AuthError(
                 "Expected Earthdata Login to respond with a redirect, "
@@ -157,7 +172,6 @@ class CsdaClient:
         response = self._request_auth("token", method="POST", data={"code": code})
         token = response.json()["access_token"]
 
-        self.username = username
         self.client.headers["Authorization"] = f"Bearer {token}"
 
     def request(
