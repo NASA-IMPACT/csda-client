@@ -13,7 +13,7 @@ class QuotaUnit(Enum):
 
 class Profile(BaseModel):
     earthdata_username: str
-    title: str
+    title: str | None
     first_name: str
     last_name: str
     funding_agency: str

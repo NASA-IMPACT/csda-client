@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import logging
+import os
 from contextlib import contextmanager
 from pathlib import Path
 from types import TracebackType
 from typing import Any, Iterator, Literal
 from urllib.parse import parse_qs, urljoin, urlparse
 
-from httpx import Auth, Client, Response
+from httpx import Auth, BasicAuth, Client, NetRCAuth, Response
 from pystac import Item
 
 from .models import Profile
@@ -24,12 +25,26 @@ class AuthError(Exception):
     """A custom exception that we raise when something bad happens during authentication."""
 
 
+def earthdata_auth() -> Auth:
+    """Resolve auth from either environment variables or .netrc."""
+    username = os.getenv("EARTHDATA_USERNAME")
+    password = os.getenv("EARTHDATA_PASSWORD")
+
+    if username and password:
+        return BasicAuth(username, password)
+
+    return NetRCAuth()
+
+
 class CsdaClient:
     """A client for interacting with CSDA services."""
 
     @classmethod
-    def open(cls, auth: Auth, url: str = PRODUCTION_URL) -> CsdaClient:
+    def open(cls, auth: Auth | None = None, url: str = PRODUCTION_URL) -> CsdaClient:
         """Opens and logs in a CSDA client."""
+        if auth is None:
+            auth = earthdata_auth()
+
         client = CsdaClient(url)
         client.login(auth)
         return client

@@ -1,8 +1,10 @@
 import os
+from netrc import NetrcParseError, netrc
+from pathlib import Path
 from typing import Any, Iterator
 
 import pytest
-from httpx import BasicAuth, NetRCAuth
+from httpx import BasicAuth
 from pydantic import SecretStr
 from pytest import Config, Parser
 
@@ -36,9 +38,23 @@ def basic_auth_client(
 
 
 @pytest.fixture(scope="session")
-def client() -> Iterator[CsdaClient]:
-    with CsdaClient.open(NetRCAuth()) as client:
+def netrc_client() -> Iterator[CsdaClient]:
+    with CsdaClient.open() as client:
         yield client
+
+
+def get_username_from_netrc(machine: str = "urs.earthdata.nasa.gov") -> str:
+    """Return (username, password) from the user's .netrc for Earthdata."""
+    netrc_path = Path.home() / ".netrc"
+    nrc = netrc(netrc_path)
+    try:
+        auth = nrc.authenticators(machine)
+        if auth is None:
+            pytest.skip(f"No entry for {machine} in {netrc_path}")
+        login, _, __ = auth
+        return login
+    except NetrcParseError as e:
+        pytest.skip(f"Could not parse {netrc_path}: {e}")
 
 
 def pytest_addoption(parser: Parser) -> None:
