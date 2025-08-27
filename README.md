@@ -8,7 +8,7 @@ An API client for [CSDA](https://csdap.earthdata.nasa.gov/).
 python -m pip install git+https://github.com/nasa-impact/csda-client
 ```
 
-We have [a notebook](./docs/search-and-download.ipynb) that demonstrates how to use the client:
+We have [a notebook](./docs/search-and-download.ipynb) that demonstrates how to use the client.
 
 ## Issues
 
@@ -34,6 +34,7 @@ EARTHDATA_USERNAME=your-user-name
 EARTHDATA_PASSWORD=your-password
 ```
 
+We also allow `.netrc` authentication, so set that up per [these instructions](https://nsidc.org/data/user-resources/help-center/creating-netrc-file-earthdata-login)
 Then:
 
 ```sh
