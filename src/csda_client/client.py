@@ -9,8 +9,16 @@ from urllib.parse import parse_qs, urljoin, urlparse
 
 from httpx import Auth, Client, Response
 from pystac import Item
+from stapi_pydantic import Order, OrderPayload
 
-from .models import Profile
+from .models import (
+    CreateTaskingProposal,
+    OrderParameters,
+    Product,
+    Profile,
+    TaskingProposal,
+    Vendor,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -83,6 +91,47 @@ class CsdaClient:
                     if chunk:
                         f.write(chunk)
 
+    def vendors(self) -> Iterator[Vendor]:
+        """Iterates over all vendors."""
+        response = self.request(method="GET", path="/signup/vendors/api/vendors/")
+        for value in response.json():
+            yield Vendor.model_validate(value)
+
+    def products(self, vendor_id: int) -> Iterator[Product]:
+        """Iterates over all products for a given vendor id."""
+        response = self.request(
+            method="GET", path=f"/signup/vendors/api/products/?vendor={vendor_id}"
+        )
+        for value in response.json():
+            yield Product.model_validate(value)
+
+    def create_tasking_proposal(
+        self, tasking_proposal: CreateTaskingProposal, submit: bool
+    ) -> TaskingProposal:
+        path = "/signup/tasking/api/proposals"
+        if submit:
+            path += "?submit=true"
+        response = self.request(
+            method="POST",
+            path=path,
+            json=tasking_proposal.model_dump(mode="json"),
+        )
+        return TaskingProposal.model_validate(response.json())
+
+    def get_tasking_order_parameters(self, product_id: str) -> OrderParameters:
+        path = f"/api/v1/stapi/products/{product_id}/order-parameters"
+        response = self.request(method="GET", path=path)
+        return OrderParameters.model_validate(response.json())
+
+    def create_tasking_request(
+        self, product_id: str, order_payload: OrderPayload
+    ) -> Order:
+        path = f"/api/v1/stapi/products/{product_id}/orders"
+        response = self.request(
+            method="POST", path=path, json=order_payload.model_dump(mode="json")
+        )
+        return Order.model_validate(response.json())
+
     def get_url(self, path: str) -> str:
         """Builds a full URL from a path."""
         return urljoin(self.url, path)
@@ -116,7 +165,7 @@ class CsdaClient:
         if response.status_code not in (302, 307):
             raise AuthError(
                 "Expected Earthdata Login to respond with a redirect, "
-                f"got {response.status_code}"
+                f"got {response.status_code}: {response.text}"
             )
 
         querystring = parse_qs(urlparse(response.headers["Location"]).query)
