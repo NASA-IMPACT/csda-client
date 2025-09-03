@@ -7,7 +7,7 @@ from types import TracebackType
 from typing import Any, Iterator, Literal
 from urllib.parse import parse_qs, urljoin, urlparse
 
-from httpx import Auth, Client, Response
+from httpx import Auth, Client, HTTPStatusError, Response
 from pystac import Item
 from stapi_pydantic import Order, OrderPayload
 
@@ -219,7 +219,11 @@ class CsdaClient:
             json=json,
         )
         if raise_for_status:
-            response.raise_for_status()
+            try:
+                response.raise_for_status()
+            except HTTPStatusError as e:
+                logger.error(f"HTTP status error ({e}): {response.text}")
+                raise e
         return response
 
     @contextmanager
