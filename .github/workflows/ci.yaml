@@ -19,8 +19,8 @@ jobs:
         with:
           args: "format --check --diff"
       - name: Mypy
-        run: uv run mypy --only-group dev
+        run: uv run --only-group dev mypy
       - name: Test
-        run: uv run pytest --only-group dev
+        run: uv run --only-group dev pytest
       - name: Build docs
-        run: uv run mkdocs build --only-group docs
+        run: uv run mkdocs build
