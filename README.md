@@ -1,5 +1,7 @@
 # CSDA client
 
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/nasa-impact/csda-client/ci.yaml?style=for-the-badge)](https://github.com/NASA-IMPACT/csda-client/actions/workflows/ci.yaml)
+
 An API client for [CSDA](https://csdap.earthdata.nasa.gov/).
 
 ## Usage
@@ -8,7 +10,7 @@ An API client for [CSDA](https://csdap.earthdata.nasa.gov/).
 python -m pip install git+https://github.com/nasa-impact/csda-client
 ```
 
-We have [a notebook](./docs/search-and-download.ipynb) that demonstrates how to use the client.
+See our [docs](https://nasa-impact.github.io/csda-client) for more.
 
 ## Issues
 
