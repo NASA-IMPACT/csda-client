@@ -27,6 +27,8 @@ cd csda-client
 uv sync
 ```
 
+### Tests
+
 Many of our tests run requests against the production system, which requires an [Earthdata login](https://urs.earthdata.nasa.gov/).
 These are skipped by default.
 To enable them, create a `.env` file with the following values:
@@ -42,6 +44,16 @@ Then:
 ```sh
 uv run pytest --with-earthdata-login
 ```
+
+### Documentation
+
+To build and serve the documentation:
+
+```sh
+uv run mkdocs serve
+```
+
+They'll be available on <http://127.0.0.1:8000/csda-client/>.
 
 ## License
 
