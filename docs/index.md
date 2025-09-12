@@ -1,6 +1,6 @@
 # csda-client
 
-**csda-client** is a Python client for NASA's Commercial Satellite Data Acquisition (CSDA) APIs.
+**csda-client** is a Python client for interacting with NASA's Commercial Satellite Data Acquisition (CSDA) APIs.
 
 ## Quickstart
 
