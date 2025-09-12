@@ -30,7 +30,7 @@ See our [search and download example](./examples/search-and-download.ipynb) for 
 ## Authentication
 
 We use [httpx authentication](https://www.python-httpx.org/advanced/authentication/) to provide authentication credentials to [Earthdata login](https://urs.earthdata.nasa.gov), which is used for CSDA API access.
-Your can use `BasicAuth` as demonstrated above, but we recommend setting up `.netrc` authentication to avoid putting your password in code.
+You can use `BasicAuth` as demonstrated above, but we recommend setting up `.netrc` authentication to avoid putting your password in code.
 To set up `.netrc`:
 
 1. Follow the instructions [here](https://nsidc.org/data/user-resources/help-center/creating-netrc-file-earthdata-login)
