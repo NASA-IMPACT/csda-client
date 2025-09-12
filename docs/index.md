@@ -25,7 +25,7 @@ client = CsdaClient.open(auth)
 client.verify()
 ```
 
-See our [search and download example](./examples/search-and-download.ipynb) for an example of finding and downloading data from the CSDA system.
+See our [search and download notebook](./examples/search-and-download.ipynb) for an example of finding and downloading data from the CSDA system.
 
 ## Authentication
 
