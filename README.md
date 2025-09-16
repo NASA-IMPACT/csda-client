@@ -1,5 +1,7 @@
 # CSDA client
 
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/nasa-impact/csda-client/ci.yaml?style=for-the-badge)](https://github.com/NASA-IMPACT/csda-client/actions/workflows/ci.yaml)
+
 An API client for [CSDA](https://csdap.earthdata.nasa.gov/).
 
 ## Usage
@@ -8,7 +10,7 @@ An API client for [CSDA](https://csdap.earthdata.nasa.gov/).
 python -m pip install git+https://github.com/nasa-impact/csda-client
 ```
 
-We have [a notebook](./docs/search-and-download.ipynb) that demonstrates how to use the client.
+See our [docs](https://nasa-impact.github.io/csda-client) for more.
 
 ## Issues
 
@@ -25,6 +27,8 @@ cd csda-client
 uv sync
 ```
 
+### Tests
+
 Many of our tests run requests against the production system, which requires an [Earthdata login](https://urs.earthdata.nasa.gov/).
 These are skipped by default.
 To enable them, create a `.env` file with the following values:
@@ -40,6 +44,16 @@ Then:
 ```sh
 uv run pytest --with-earthdata-login
 ```
+
+### Documentation
+
+To build and serve the documentation:
+
+```sh
+uv run mkdocs serve
+```
+
+They'll be available on <http://127.0.0.1:8000/csda-client/>.
 
 ## License
 

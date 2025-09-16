@@ -4,7 +4,12 @@ version = "0.1.0"
 description = "API client for CSDA services"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = ["httpx>=0.28.1", "pydantic>=2.11.7", "stapi-pydantic>=0.0.4"]
+dependencies = [
+    "httpx>=0.28.1",
+    "pydantic>=2.11.7",
+    "stapi-pydantic>=0.0.4",
+    "pystac>=1.13.0",
+]
 
 [project.urls]
 repository = "https://github.com/NASA-IMPACT/csda-client"
@@ -24,6 +29,9 @@ docs = [
     "rasterio>=1.4.3",
     "contextily>=1.6.2",
     "json-schema-for-humans>=1.4.1",
+    "mkdocs-material>=9.6.18",
+    "mkdocs-jupyter>=0.25.1",
+    "mkdocstrings[python]>=0.30.0",
 ]
 
 [tool.uv]

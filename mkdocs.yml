@@ -1,0 +1,72 @@
+site_name: csda-client
+site_url: https://nasa-impact.github.io/csda-client/
+repo_url: https://github.com/NASA-IMPACT/csda-client
+copyright: © CC-By NASA, 2025
+
+theme:
+  name: material
+  logo: img/CSDA_logo.png
+  favicon: img/CSDA_logo.png
+  icon:
+    repo: fontawesome/brands/github
+  palette:
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: white
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      toggle:
+        icon: material/brightness-4
+        name: Switch to system preference
+  features:
+    - navigation.footer
+    - navigation.indexes
+    - navigation.instant
+    - navigation.tracking
+    - navigation.top
+    - search.share
+    - search.suggest
+    - toc.integrate
+
+watch:
+  - docs
+  - src
+
+nav:
+  - Home: index.md
+  - Example notebooks:
+      - examples/search-and-download.ipynb
+      - examples/tasking.ipynb
+  - API:
+      - api/index.md
+      - api/models.md
+  - CSDA Satellite Data Explorer ↗: https://csdap.earthdata.nasa.gov/
+
+plugins:
+  - search
+  - mkdocs-jupyter
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          options:
+            members_order: source
+            separate_signature: true
+            show_signature_annotations: true
+            show_signature_type_parameters: true
+          inventories:
+            - https://docs.python.org/3/objects.inv
+            - https://pystac.readthedocs.io/en/stable/objects.inv
+
+markdown_extensions:
+  - admonition
+  - pymdownx.snippets
+  - pymdownx.superfences
