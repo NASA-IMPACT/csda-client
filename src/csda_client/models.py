@@ -79,7 +79,7 @@ class CreateTaskingProductRequest(BaseModel):
 
 class TaskingProposal(BaseModel):
     id: int
-    products: list[TaskingProductRequest]
+    proposal_products: list[TaskingProductRequest]
     is_draft: bool
     grant: Grant
     user: str
