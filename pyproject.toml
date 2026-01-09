@@ -33,6 +33,9 @@ docs = [
     "mkdocs-jupyter>=0.25.1",
     "mkdocstrings[python]>=0.30.0",
 ]
+notebook = [
+    "jupyterlab>=4.5.1",
+]
 
 [tool.uv]
 default-groups = ["dev", "docs"]
