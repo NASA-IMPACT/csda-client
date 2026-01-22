@@ -19,7 +19,7 @@ jobs:
       - uses: actions/create-github-app-token@v2
         id: generate-token
         with:
-          app-id: ${{ vars.CSDA_RELEASE_BOT_CLIENT_ID }}
+          app-id: ${{ secrets.CSDA_RELEASE_BOT_CLIENT_ID }}
           private-key: ${{ secrets.CSDA_RELEASE_BOT_PRIVATE_KEY }}
       - uses: googleapis/release-please-action@v4
         id: release-please
