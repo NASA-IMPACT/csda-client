@@ -18,4 +18,6 @@ jobs:
       - run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-      - run: uv run mike deploy --push --update-aliases latest
+      - id: version
+        run: echo "version=$(grep '^version' pyproject.toml | sed 's/version = "\(.*\)"/\1/')" >> "$GITHUB_OUTPUT"
+      - run: uv run mike deploy --push --update-aliases ${{ steps.version.outputs.version }} latest
