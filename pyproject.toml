@@ -9,7 +9,12 @@ dependencies = [
     "pydantic>=2.11.7",
     "stapi-pydantic>=0.0.4",
     "pystac>=1.13.0",
+    "pystac-client>=0.8.6",
+    "typer>=0.15.0",
 ]
+
+[project.scripts]
+csda = "csda_client.cli:app"
 
 [project.urls]
 repository = "https://github.com/NASA-IMPACT/csda-client"
