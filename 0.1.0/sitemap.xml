@@ -2,22 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://nasa-impact.github.io/csda-client/0.1.0/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-11</lastmod>
     </url>
     <url>
          <loc>https://nasa-impact.github.io/csda-client/0.1.0/api/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-11</lastmod>
     </url>
     <url>
          <loc>https://nasa-impact.github.io/csda-client/0.1.0/api/models/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-11</lastmod>
     </url>
     <url>
          <loc>https://nasa-impact.github.io/csda-client/0.1.0/examples/search-and-download/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-11</lastmod>
     </url>
     <url>
          <loc>https://nasa-impact.github.io/csda-client/0.1.0/examples/tasking/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-11</lastmod>
     </url>
 </urlset>
