@@ -15,9 +15,9 @@ from csda_client.models import QuotaUnit
 app = typer.Typer(help="CSDA CLI - Search and download satellite data from NASA CSDA")
 
 
-def get_stac_url(staging: bool = False) -> str:
+def get_stac_url(prod: bool = False) -> str:
     """Get the STAC API URL."""
-    return f"{STAGING_URL}/stac/" if staging else f"{PRODUCTION_URL}/stac/"
+    return f"{PRODUCTION_URL}/stac/" if prod else f"{STAGING_URL}/stac/"
 
 
 def get_auth() -> BasicAuth | NetRCAuth | None:
@@ -35,7 +35,7 @@ def get_auth() -> BasicAuth | NetRCAuth | None:
         return None
 
 
-def get_authenticated_client(staging: bool = False) -> CsdaClient:
+def get_authenticated_client(prod: bool = False) -> CsdaClient:
     """Get an authenticated CsdaClient."""
     auth = get_auth()
     if auth is None:
@@ -46,7 +46,7 @@ def get_authenticated_client(staging: bool = False) -> CsdaClient:
         )
         raise typer.Exit(1)
 
-    url = STAGING_URL if staging else PRODUCTION_URL
+    url = PRODUCTION_URL if prod else STAGING_URL
     return CsdaClient.open(auth, url)
 
 
@@ -114,15 +114,15 @@ def format_quota_value(value: float, unit: QuotaUnit) -> str:
 
 @app.command()
 def collections(
-    staging: Annotated[
-        bool, typer.Option("--staging", help="Use staging environment")
+    prod: Annotated[
+        bool, typer.Option("--prod", help="Use production environment")
     ] = False,
     pretty: Annotated[
         bool, typer.Option("--pretty", help="Pretty print JSON output")
     ] = False,
 ) -> None:
     """List available STAC collections (vendors/datasets)."""
-    stac_url = get_stac_url(staging)
+    stac_url = get_stac_url(prod)
     client = StacClient.open(stac_url)
 
     # Use collection_search().collections_as_dicts() to avoid parsing errors
@@ -178,8 +178,8 @@ def search(
             help="Sort field (prefix with - for descending, e.g., -datetime)",
         ),
     ] = None,
-    staging: Annotated[
-        bool, typer.Option("--staging", help="Use staging environment")
+    prod: Annotated[
+        bool, typer.Option("--prod", help="Use production environment")
     ] = False,
     pretty: Annotated[
         bool, typer.Option("--pretty", help="Pretty print JSON output")
@@ -189,7 +189,7 @@ def search(
     ] = False,
 ) -> None:
     """Search for STAC items with spatial/temporal/property filters."""
-    stac_url = get_stac_url(staging)
+    stac_url = get_stac_url(prod)
     client = StacClient.open(stac_url)
 
     # Parse bbox
@@ -275,8 +275,8 @@ def download(
     item_id: Annotated[str, typer.Argument(help="STAC item ID")],
     asset_key: Annotated[str, typer.Argument(help="Asset key to download")],
     output_path: Annotated[str, typer.Argument(help="Output file path")],
-    staging: Annotated[
-        bool, typer.Option("--staging", help="Use staging environment")
+    prod: Annotated[
+        bool, typer.Option("--prod", help="Use production environment")
     ] = False,
     skip_quota_check: Annotated[
         bool,
@@ -293,7 +293,7 @@ def download(
     """
     from httpx import HTTPStatusError
 
-    with get_authenticated_client(staging) as client:
+    with get_authenticated_client(prod) as client:
         # Get username from verify endpoint
         try:
             verify_result = client.verify()
@@ -385,15 +385,15 @@ def download(
 
 @app.command()
 def verify(
-    staging: Annotated[
-        bool, typer.Option("--staging", help="Use staging environment")
+    prod: Annotated[
+        bool, typer.Option("--prod", help="Use production environment")
     ] = False,
     pretty: Annotated[
         bool, typer.Option("--pretty", help="Pretty print JSON output")
     ] = False,
 ) -> None:
     """Verify authentication is working."""
-    with get_authenticated_client(staging) as client:
+    with get_authenticated_client(prod) as client:
         result = client.verify()
         indent = 2 if pretty else None
         typer.echo(json.dumps(result, indent=indent, default=str))
@@ -402,15 +402,15 @@ def verify(
 @app.command()
 def profile(
     username: Annotated[str, typer.Argument(help="Earthdata username")],
-    staging: Annotated[
-        bool, typer.Option("--staging", help="Use staging environment")
+    prod: Annotated[
+        bool, typer.Option("--prod", help="Use production environment")
     ] = False,
     pretty: Annotated[
         bool, typer.Option("--pretty", help="Pretty print JSON output")
     ] = False,
 ) -> None:
     """Get user profile with quotas and permissions."""
-    with get_authenticated_client(staging) as client:
+    with get_authenticated_client(prod) as client:
         result = client.profile(username)
         indent = 2 if pretty else None
         typer.echo(
@@ -421,8 +421,8 @@ def profile(
 @app.command()
 def quota(
     username: Annotated[str, typer.Argument(help="Earthdata username")],
-    staging: Annotated[
-        bool, typer.Option("--staging", help="Use staging environment")
+    prod: Annotated[
+        bool, typer.Option("--prod", help="Use production environment")
     ] = False,
     pretty: Annotated[
         bool, typer.Option("--pretty", help="Pretty print JSON output")
@@ -435,7 +435,7 @@ def quota(
 
     Shows quota limits, current usage, and remaining quota for each vendor.
     """
-    with get_authenticated_client(staging) as client:
+    with get_authenticated_client(prod) as client:
         try:
             summary = client.get_quota_summary(username)
 
@@ -476,15 +476,15 @@ def quota(
 
 @app.command()
 def vendors(
-    staging: Annotated[
-        bool, typer.Option("--staging", help="Use staging environment")
+    prod: Annotated[
+        bool, typer.Option("--prod", help="Use production environment")
     ] = False,
     pretty: Annotated[
         bool, typer.Option("--pretty", help="Pretty print JSON output")
     ] = False,
 ) -> None:
     """List available tasking vendors."""
-    with get_authenticated_client(staging) as client:
+    with get_authenticated_client(prod) as client:
         vendors_list = [v.model_dump(mode="json") for v in client.vendors()]
         output = {"vendors": vendors_list}
         indent = 2 if pretty else None
@@ -494,15 +494,15 @@ def vendors(
 @app.command()
 def products(
     vendor_id: Annotated[int, typer.Argument(help="Vendor ID")],
-    staging: Annotated[
-        bool, typer.Option("--staging", help="Use staging environment")
+    prod: Annotated[
+        bool, typer.Option("--prod", help="Use production environment")
     ] = False,
     pretty: Annotated[
         bool, typer.Option("--pretty", help="Pretty print JSON output")
     ] = False,
 ) -> None:
     """List products for a vendor."""
-    with get_authenticated_client(staging) as client:
+    with get_authenticated_client(prod) as client:
         products_list = [p.model_dump(mode="json") for p in client.products(vendor_id)]
         output = {"products": products_list}
         indent = 2 if pretty else None
