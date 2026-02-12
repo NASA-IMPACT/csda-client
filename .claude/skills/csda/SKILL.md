@@ -1,8 +1,7 @@
 ---
 name: csda
 description: Search and download NASA CSDA (Commercial SmallSat Data Acquisition) satellite data
-tools:
-  - Bash
+allowed-tools: Bash(csda *), Bash(uv run csda *)
 ---
 
 # CSDA Satellite Data Skill
