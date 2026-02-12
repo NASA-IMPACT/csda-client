@@ -13,11 +13,15 @@ from stapi_pydantic import Order, OrderPayload
 
 from .models import (
     CreateTaskingProposal,
+    DownloadSummaryItem,
     OrderParameters,
     Product,
     Profile,
+    QuotaSummary,
+    QuotaUnit,
     TaskingProposal,
     Vendor,
+    VendorQuotaUsage,
 )
 
 logger = logging.getLogger(__name__)
@@ -143,6 +147,98 @@ class CsdaClient:
                 for chunk in response.iter_bytes(1024 * 8):
                     if chunk:
                         f.write(chunk)
+
+    def download_summary(
+        self, username: str | None = None
+    ) -> list[DownloadSummaryItem]:
+        """Fetches download usage summary.
+
+        Args:
+            username: Optional username filter. If not provided, returns entries
+                      for the authenticated user.
+
+        Returns:
+            List of download summary items showing usage per provider.
+        """
+        params = {}
+        if username:
+            params["username"] = username
+        response = self.request(
+            method="GET",
+            path="/api/v1/download/summary",
+            params=params if params else None,
+        )
+        return [DownloadSummaryItem.model_validate(item) for item in response.json()]
+
+    def get_quota_summary(self, username: str) -> QuotaSummary:
+        """Gets a combined quota summary with limits and current usage.
+
+        This method combines data from the profile endpoint (quota limits)
+        and the download summary endpoint (current usage) to produce a
+        unified view of quota status per vendor.
+
+        Args:
+            username: The Earthdata username to check.
+
+        Returns:
+            A QuotaSummary with usage details for each vendor.
+        """
+        profile = self.profile(username)
+        summary_items = self.download_summary(username)
+
+        usage_by_provider: dict[str, DownloadSummaryItem] = {
+            item.provider: item for item in summary_items
+        }
+
+        vendor_usages = []
+        for vendor in profile.vendors:
+            usage_item = usage_by_provider.get(vendor.slug)
+
+            if vendor.quota_unit == QuotaUnit.area:
+                used = float(usage_item.area) if usage_item else 0.0
+            else:
+                used = float(usage_item.filesize) if usage_item else 0.0
+
+            remaining = max(0.0, vendor.quota - used)
+            percentage = (used / vendor.quota * 100) if vendor.quota > 0 else 0.0
+
+            vendor_usages.append(
+                VendorQuotaUsage(
+                    vendor=vendor.vendor,
+                    slug=vendor.slug,
+                    quota=vendor.quota,
+                    quota_unit=vendor.quota_unit,
+                    used=used,
+                    remaining=remaining,
+                    percentage_used=percentage,
+                    approved=vendor.approved,
+                    expiration_date=vendor.expiration_date,
+                )
+            )
+
+        return QuotaSummary(username=username, vendors=vendor_usages)
+
+    def check_quota_available(
+        self, username: str, collection_id: str
+    ) -> tuple[bool, VendorQuotaUsage | None]:
+        """Checks if user has quota available for a given collection.
+
+        Args:
+            username: The Earthdata username.
+            collection_id: The STAC collection ID (maps to vendor slug).
+
+        Returns:
+            Tuple of (has_quota, vendor_usage) where vendor_usage is None
+            if the vendor is not found in user's profile.
+        """
+        quota_summary = self.get_quota_summary(username)
+
+        for vendor in quota_summary.vendors:
+            if vendor.slug == collection_id or collection_id.startswith(vendor.slug):
+                has_remaining = vendor.remaining > 0 and vendor.approved
+                return (has_remaining, vendor)
+
+        return (True, None)
 
     def vendors(self) -> Iterator[Vendor]:
         """Iterates over all vendors.
