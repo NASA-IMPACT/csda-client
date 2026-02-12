@@ -146,6 +146,27 @@ def test_vendors(
     assert "vendors" in data
 
 
+def test_search_with_map_flag() -> None:
+    """Search with --map includes stac-map URLs."""
+    result = runner.invoke(app, ["search", "-c", "planet", "--limit", "1", "--map"])
+    assert result.exit_code == 0
+    data = json.loads(result.stdout)
+    if data["items"]:
+        item = data["items"][0]
+        assert "map" in item
+        assert item["map"].startswith("https://developmentseed.org/stac-map/")
+
+
+def test_map_command() -> None:
+    """Map command generates stac-map URL."""
+    result = runner.invoke(
+        app, ["map", "https://csdap.earthdata.nasa.gov/stac/collections/planet"]
+    )
+    assert result.exit_code == 0
+    assert "developmentseed.org/stac-map" in result.stdout
+    assert "planet" in result.stdout
+
+
 def test_download_without_auth_fails() -> None:
     """Download without credentials should fail."""
     result = runner.invoke(

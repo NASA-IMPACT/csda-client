@@ -46,6 +46,7 @@ csda search [OPTIONS]
 | `--limit` | Max items to return | `--limit 10` |
 | `--intersects` | GeoJSON geometry file or inline | `--intersects area.geojson` |
 | `--pretty` | Human-readable output | `--pretty` |
+| `--map` | Include stac-map visualization URLs | `--map` |
 
 ### Download Asset
 ```bash
@@ -73,6 +74,13 @@ csda vendors [--pretty]
 ```bash
 csda products <vendor_id> [--pretty]
 ```
+
+### Visualize on Map
+```bash
+csda map <stac_url>
+```
+Generates a stac-map URL and opens it in your browser.
+Works with any STAC item or collection URL.
 
 ## Common Workflows
 
@@ -103,6 +111,18 @@ csda download planet PSScene-20251119_183303_62_24c6 thumbnail ./thumbnail.jpg
 csda profile <username> --pretty
 ```
 
+### "Show me search results on a map"
+```bash
+csda search -c planet --bbox -105.1,39.6,-104.8,39.9 --limit 3 --map --pretty
+```
+Each result includes a `map` field with a stac-map visualization URL.
+
+### "Visualize this collection/item on a map"
+```bash
+csda map https://csdap.earthdata.nasa.gov/stac/collections/planet
+```
+Opens an interactive map in the browser showing the STAC item/collection footprint.
+
 ## Output Format
 
 All commands output JSON by default. Use `--pretty` for formatted output.
@@ -114,6 +134,7 @@ Search results include:
 - `bbox`: Bounding box
 - `cloud_cover`: Cloud cover percentage (if available)
 - `link`: Direct link to STAC item
+- `map`: stac-map visualization URL (when `--map` flag is used)
 
 ## Tips
 
