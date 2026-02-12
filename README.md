@@ -12,6 +12,16 @@ python -m pip install git+https://github.com/nasa-impact/csda-client
 
 See our [docs](https://nasa-impact.github.io/csda-client) for more.
 
+## Environments
+
+By default, the CLI uses the **staging** environment (`csdap-staging.ds.io`). To use the **production** environment (`csdap.earthdata.nasa.gov`), add the `--prod` flag to any command:
+
+```shell
+csda collections --prod
+csda search -c planet --bbox -105,39,-104,40 --prod
+csda download planet item-id asset out.tif --prod
+```
+
 ## Issues
 
 Please open [Github issues](https://github.com/NASA-IMPACT/csda-client/issues) with any bug reports, feature requests, and questions. You may also reach out to the CSDA Operations team at csda-support@nasa.gov.

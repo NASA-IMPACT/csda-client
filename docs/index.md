@@ -17,12 +17,35 @@ python -m pip install git+https://github.com/NASA-IMPACT/csda-client
 Then:
 
 ```python
-from csda_client import CsdaClient
+from csda_client import CsdaClient, STAGING_URL
 from httpx import BasicAuth
 
 auth = BasicAuth(username="your-earthdata-username", password="your-earthdata-password")
-client = CsdaClient.open(auth)
+client = CsdaClient.open(auth, url=STAGING_URL)  # Use staging (recommended for development)
 client.verify()
+```
+
+## Environments
+
+The library provides two environment URLs:
+
+- `STAGING_URL` (`csdap-staging.ds.io`) - For development and testing
+- `PRODUCTION_URL` (`csdap.earthdata.nasa.gov`) - For production use
+
+```python
+from csda_client import CsdaClient, STAGING_URL, PRODUCTION_URL
+
+# Staging (recommended for development)
+client = CsdaClient.open(auth, url=STAGING_URL)
+
+# Production
+client = CsdaClient.open(auth, url=PRODUCTION_URL)
+```
+
+The CLI defaults to staging. Use `--prod` flag for production:
+
+```shell
+csda search -c planet --prod
 ```
 
 See our [search and download notebook](./examples/search-and-download.ipynb) for an example of finding and downloading data from the CSDA system.
