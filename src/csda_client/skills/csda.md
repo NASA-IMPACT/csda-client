@@ -49,15 +49,29 @@ csda search [OPTIONS]
 
 ### Download Asset
 ```bash
-csda download <collection> <item_id> <asset_key> <output_path>
+csda download <collection> <item_id> <asset_key> <output_path> [OPTIONS]
 ```
 Requires authentication. Common asset keys: `thumbnail`, `ortho_visual`, `ortho_analytic_4b`
 
-### User Profile & Quotas
+**Options:**
+| Option | Description |
+|--------|-------------|
+| `--skip-quota-check` | Skip pre-download quota verification |
+| `--show-quota` | Display quota before and after download |
+
+By default, the download command checks if you have sufficient quota before downloading.
+
+### Check Quota Usage
+```bash
+csda quota <username> [--pretty] [--human]
+```
+Shows quota limits, current usage, and remaining quota per vendor. Use `--human` for a formatted table view. Requires authentication.
+
+### User Profile
 ```bash
 csda profile <username> [--pretty]
 ```
-Shows download quotas per vendor. Requires authentication.
+Shows full user profile including grants and vendor access. Requires authentication.
 
 ### Verify Authentication
 ```bash
@@ -107,8 +121,21 @@ csda download planet PSScene-20251119_183303_62_24c6 thumbnail ./thumbnail.jpg
 
 ### "Check my download quota"
 ```bash
-csda profile <username> --pretty
+csda quota <username> --human
 ```
+Shows a table with quota limits, usage, and remaining quota for each vendor.
+
+### "Download with quota tracking"
+```bash
+csda download planet PSScene-123 ortho_visual ./image.tif --show-quota
+```
+Shows quota before and after the download completes.
+
+### "Download without quota check"
+```bash
+csda download planet PSScene-123 ortho_visual ./image.tif --skip-quota-check
+```
+Bypasses pre-download quota verification for faster downloads.
 
 ### "Show me search results on a map"
 ```bash

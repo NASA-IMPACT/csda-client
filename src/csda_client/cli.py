@@ -10,6 +10,7 @@ from httpx import BasicAuth, NetRCAuth
 from pystac_client import Client as StacClient
 
 from csda_client import PRODUCTION_URL, STAGING_URL, CsdaClient
+from csda_client.models import QuotaUnit
 
 app = typer.Typer(help="CSDA CLI - Search and download satellite data from NASA CSDA")
 
@@ -82,6 +83,33 @@ def format_item_summary(item: dict, include_map: bool = False) -> dict:
         result["map"] = get_stac_map_url(self_link)
 
     return result
+
+
+def format_size(bytes_value: float) -> str:
+    """Format bytes as human-readable size."""
+    for unit in ["B", "KB", "MB", "GB", "TB"]:
+        if abs(bytes_value) < 1024.0:
+            return f"{bytes_value:.1f} {unit}"
+        bytes_value /= 1024.0
+    return f"{bytes_value:.1f} PB"
+
+
+def format_area(sq_km: float) -> str:
+    """Format area as human-readable string."""
+    if sq_km >= 1_000_000:
+        return f"{sq_km / 1_000_000:.2f} M sq km"
+    elif sq_km >= 1000:
+        return f"{sq_km / 1000:.2f} K sq km"
+    else:
+        return f"{sq_km:.1f} sq km"
+
+
+def format_quota_value(value: float, unit: QuotaUnit) -> str:
+    """Format a quota value based on its unit type."""
+    if unit == QuotaUnit.filesize:
+        return format_size(value)
+    else:
+        return format_area(value)
 
 
 @app.command()
@@ -250,15 +278,109 @@ def download(
     staging: Annotated[
         bool, typer.Option("--staging", help="Use staging environment")
     ] = False,
+    skip_quota_check: Annotated[
+        bool,
+        typer.Option("--skip-quota-check", help="Skip pre-download quota verification"),
+    ] = False,
+    show_quota: Annotated[
+        bool, typer.Option("--show-quota", help="Show quota before and after download")
+    ] = False,
 ) -> None:
-    """Download a STAC item asset."""
+    """Download a STAC item asset.
+
+    By default, checks quota availability before downloading.
+    Use --skip-quota-check to bypass this verification.
+    """
+    from httpx import HTTPStatusError
+
     with get_authenticated_client(staging) as client:
+        # Get username from verify endpoint
+        try:
+            verify_result = client.verify()
+            username = verify_result.get("uid") or verify_result.get("sub")
+            if not username:
+                typer.echo(
+                    "Error: Could not determine username from authentication", err=True
+                )
+                raise typer.Exit(1)
+        except Exception as e:
+            typer.echo(f"Authentication error: {e}", err=True)
+            raise typer.Exit(1)
+
+        # Pre-download quota check
+        vendor_usage_before = None
+        if not skip_quota_check or show_quota:
+            try:
+                has_quota, vendor_usage_before = client.check_quota_available(
+                    username, collection_id
+                )
+
+                if not skip_quota_check and vendor_usage_before is not None:
+                    if not has_quota:
+                        typer.echo(
+                            f"Error: Insufficient quota for {collection_id}. "
+                            f"Remaining: {format_quota_value(vendor_usage_before.remaining, vendor_usage_before.quota_unit)}",
+                            err=True,
+                        )
+                        typer.echo(
+                            "Use --skip-quota-check to attempt download anyway.",
+                            err=True,
+                        )
+                        raise typer.Exit(1)
+
+                if show_quota and vendor_usage_before:
+                    typer.echo(
+                        f"Quota before download - "
+                        f"Used: {format_quota_value(vendor_usage_before.used, vendor_usage_before.quota_unit)}, "
+                        f"Remaining: {format_quota_value(vendor_usage_before.remaining, vendor_usage_before.quota_unit)}",
+                        err=True,
+                    )
+            except HTTPStatusError as e:
+                if not skip_quota_check:
+                    typer.echo(f"Warning: Could not check quota: {e}", err=True)
+
+        # Perform download
         try:
             client.download(collection_id, item_id, asset_key, Path(output_path))
-            typer.echo(json.dumps({"status": "success", "path": output_path}))
+        except HTTPStatusError as e:
+            if e.response.status_code == 403:
+                error_body = e.response.text
+                if "quota" in error_body.lower() or "exceeded" in error_body.lower():
+                    typer.echo(
+                        f"Error: Download failed - quota exceeded for {collection_id}",
+                        err=True,
+                    )
+                    typer.echo(
+                        f"Check your quota with: csda quota {username}",
+                        err=True,
+                    )
+                else:
+                    typer.echo(f"Error: Access denied (403): {error_body}", err=True)
+                raise typer.Exit(1)
+            else:
+                typer.echo(f"Download error: {e}", err=True)
+                raise typer.Exit(1)
         except Exception as e:
             typer.echo(f"Download error: {e}", err=True)
             raise typer.Exit(1)
+
+        # Post-download quota display
+        if show_quota:
+            try:
+                _, vendor_usage_after = client.check_quota_available(
+                    username, collection_id
+                )
+                if vendor_usage_after:
+                    typer.echo(
+                        f"Quota after download - "
+                        f"Used: {format_quota_value(vendor_usage_after.used, vendor_usage_after.quota_unit)}, "
+                        f"Remaining: {format_quota_value(vendor_usage_after.remaining, vendor_usage_after.quota_unit)}",
+                        err=True,
+                    )
+            except Exception:
+                pass  # Non-critical, don't fail the download
+
+        typer.echo(json.dumps({"status": "success", "path": output_path}))
 
 
 @app.command()
@@ -294,6 +416,62 @@ def profile(
         typer.echo(
             json.dumps(result.model_dump(mode="json"), indent=indent, default=str)
         )
+
+
+@app.command()
+def quota(
+    username: Annotated[str, typer.Argument(help="Earthdata username")],
+    staging: Annotated[
+        bool, typer.Option("--staging", help="Use staging environment")
+    ] = False,
+    pretty: Annotated[
+        bool, typer.Option("--pretty", help="Pretty print JSON output")
+    ] = False,
+    human_readable: Annotated[
+        bool, typer.Option("--human", "-H", help="Human-readable table format")
+    ] = False,
+) -> None:
+    """Check download quota usage for a user.
+
+    Shows quota limits, current usage, and remaining quota for each vendor.
+    """
+    with get_authenticated_client(staging) as client:
+        try:
+            summary = client.get_quota_summary(username)
+
+            if human_readable:
+                typer.echo(f"\nQuota Summary for {username}\n")
+                typer.echo("-" * 75)
+                typer.echo(
+                    f"{'Vendor':<20} {'Quota':<15} {'Used':<15} "
+                    f"{'Remaining':<15} {'%Used':<8}"
+                )
+                typer.echo("-" * 75)
+
+                for v in summary.vendors:
+                    status = "" if v.approved else " (not approved)"
+
+                    quota_str = format_quota_value(v.quota, v.quota_unit)
+                    used_str = format_quota_value(v.used, v.quota_unit)
+                    remaining_str = format_quota_value(v.remaining, v.quota_unit)
+                    pct_str = f"{v.percentage_used:.1f}%"
+
+                    typer.echo(
+                        f"{v.vendor:<20} {quota_str:<15} {used_str:<15} "
+                        f"{remaining_str:<15} {pct_str:<8}{status}"
+                    )
+
+                typer.echo("-" * 75)
+            else:
+                indent = 2 if pretty else None
+                typer.echo(
+                    json.dumps(
+                        summary.model_dump(mode="json"), indent=indent, default=str
+                    )
+                )
+        except Exception as e:
+            typer.echo(f"Error fetching quota: {e}", err=True)
+            raise typer.Exit(1)
 
 
 @app.command()

@@ -98,3 +98,34 @@ class TaskingProductRequest(BaseModel):
 
 class OrderParameters(StapiOrderParameters):
     model_config = ConfigDict(extra="allow")
+
+
+class DownloadSummaryItem(BaseModel):
+    """A single entry from the download summary API."""
+
+    username: str
+    provider: str
+    area: int
+    filesize: int
+    updated_at: datetime.datetime | None = None
+
+
+class VendorQuotaUsage(BaseModel):
+    """Combined quota and usage information for a single vendor."""
+
+    vendor: str
+    slug: str
+    quota: int
+    quota_unit: QuotaUnit
+    used: float
+    remaining: float
+    percentage_used: float
+    approved: bool
+    expiration_date: datetime.date
+
+
+class QuotaSummary(BaseModel):
+    """Complete quota summary for a user."""
+
+    username: str
+    vendors: list[VendorQuotaUsage]
