@@ -248,15 +248,15 @@ def search(
     # Execute search
     try:
         search_result = client.search(**search_kwargs)
-        items = list(search_result.items())
+        # Use items_as_dicts() to avoid parsing errors with items
+        # that have invalid STAC metadata (e.g., missing 'type' attribute)
+        items = list(search_result.items_as_dicts())
     except Exception as e:
         typer.echo(f"Search error: {e}", err=True)
         raise typer.Exit(1)
 
     # Format output
-    items_summary = [
-        format_item_summary(item.to_dict(), include_map=map_urls) for item in items
-    ]
+    items_summary = [format_item_summary(item, include_map=map_urls) for item in items]
     output = {
         "matched": search_result.matched()
         if hasattr(search_result, "matched")
