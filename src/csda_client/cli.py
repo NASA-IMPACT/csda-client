@@ -49,7 +49,17 @@ def get_authenticated_client(staging: bool = False) -> CsdaClient:
     return CsdaClient.open(auth, url)
 
 
-def format_item_summary(item: dict) -> dict:
+STAC_MAP_BASE_URL = "https://developmentseed.org/stac-map/"
+
+
+def get_stac_map_url(stac_url: str) -> str:
+    """Generate a stac-map visualization URL for a STAC item or collection."""
+    from urllib.parse import quote
+
+    return f"{STAC_MAP_BASE_URL}?href={quote(stac_url, safe='')}"
+
+
+def format_item_summary(item: dict, include_map: bool = False) -> dict:
     """Format a STAC item as a summary with essential fields."""
     properties = item.get("properties", {})
     links = item.get("links", [])
@@ -59,7 +69,7 @@ def format_item_summary(item: dict) -> dict:
         (link["href"] for link in links if link.get("rel") == "self"), None
     )
 
-    return {
+    result = {
         "id": item.get("id"),
         "collection": item.get("collection"),
         "datetime": properties.get("datetime"),
@@ -67,6 +77,11 @@ def format_item_summary(item: dict) -> dict:
         "cloud_cover": properties.get("eo:cloud_cover"),
         "link": self_link,
     }
+
+    if include_map and self_link:
+        result["map"] = get_stac_map_url(self_link)
+
+    return result
 
 
 @app.command()
@@ -141,6 +156,9 @@ def search(
     pretty: Annotated[
         bool, typer.Option("--pretty", help="Pretty print JSON output")
     ] = False,
+    map_urls: Annotated[
+        bool, typer.Option("--map", help="Include stac-map visualization URLs")
+    ] = False,
 ) -> None:
     """Search for STAC items with spatial/temporal/property filters."""
     stac_url = get_stac_url(staging)
@@ -208,7 +226,9 @@ def search(
         raise typer.Exit(1)
 
     # Format output
-    items_summary = [format_item_summary(item.to_dict()) for item in items]
+    items_summary = [
+        format_item_summary(item.to_dict(), include_map=map_urls) for item in items
+    ]
     output = {
         "matched": search_result.matched()
         if hasattr(search_result, "matched")
@@ -309,6 +329,30 @@ def products(
         output = {"products": products_list}
         indent = 2 if pretty else None
         typer.echo(json.dumps(output, indent=indent, default=str))
+
+
+@app.command()
+def map(
+    stac_url: Annotated[str, typer.Argument(help="STAC item or collection URL")],
+) -> None:
+    """Generate a stac-map visualization URL for a STAC item or collection.
+
+    Opens the URL in your browser if possible.
+
+    Examples:
+        csda map https://csdap.earthdata.nasa.gov/stac/collections/planet
+        csda map https://csdap.earthdata.nasa.gov/stac/collections/planet/items/PSScene-123
+    """
+    map_url = get_stac_map_url(stac_url)
+    typer.echo(map_url)
+
+    # Try to open in browser
+    try:
+        import webbrowser
+
+        webbrowser.open(map_url)
+    except Exception:
+        pass  # Silently fail if browser can't be opened
 
 
 @app.command("install-skill")
