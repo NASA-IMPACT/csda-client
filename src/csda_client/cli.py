@@ -14,7 +14,6 @@ from csda_client import PRODUCTION_URL, STAGING_URL, CsdaClient
 app = typer.Typer(help="CSDA CLI - Search and download satellite data from NASA CSDA")
 
 
-
 def get_stac_url(staging: bool = False) -> str:
     """Get the STAC API URL."""
     return f"{STAGING_URL}/stac/" if staging else f"{PRODUCTION_URL}/stac/"
@@ -310,6 +309,49 @@ def products(
         output = {"products": products_list}
         indent = 2 if pretty else None
         typer.echo(json.dumps(output, indent=indent, default=str))
+
+
+@app.command("install-skill")
+def install_skill(
+    global_install: Annotated[
+        bool,
+        typer.Option("--global", "-g", help="Install to ~/.claude/skills (user-wide)"),
+    ] = False,
+) -> None:
+    """Install the CSDA skill for Claude Code.
+
+    By default, installs to .claude/skills/ in the current directory.
+    Use --global to install to ~/.claude/skills/ for user-wide access.
+    """
+    from importlib.resources import files
+
+    # Determine destination
+    if global_install:
+        dest_dir = Path.home() / ".claude" / "skills"
+    else:
+        dest_dir = Path.cwd() / ".claude" / "skills"
+
+    dest_dir.mkdir(parents=True, exist_ok=True)
+    dest_file = dest_dir / "csda.md"
+
+    # Get the skill file from package resources
+    skill_source = files("csda_client.skills").joinpath("csda.md")
+    with skill_source.open("r") as src:
+        content = src.read()
+
+    dest_file.write_text(content)
+    typer.echo(f"Installed CSDA skill to {dest_file}")
+    typer.echo("\nUsage: Type /csda in Claude Code to use the skill.")
+
+
+@app.command("show-skill")
+def show_skill() -> None:
+    """Print the CSDA skill file contents."""
+    from importlib.resources import files
+
+    skill_source = files("csda_client.skills").joinpath("csda.md")
+    with skill_source.open("r") as src:
+        typer.echo(src.read())
 
 
 if __name__ == "__main__":
