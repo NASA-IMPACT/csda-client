@@ -21,6 +21,14 @@ export EARTHDATA_USERNAME="username"
 export EARTHDATA_PASSWORD="password"
 ```
 
+## Environments
+
+By default, all commands use the **staging** environment. Add `--prod` to any command to use production:
+```bash
+csda search -c planet --bbox -105,39,-104,40 --prod
+csda collections --prod
+```
+
 ## Available Commands
 
 ### List Collections (Vendors)
@@ -46,6 +54,7 @@ csda search [OPTIONS]
 | `--intersects` | GeoJSON geometry file or inline | `--intersects area.geojson` |
 | `--pretty` | Human-readable output | `--pretty` |
 | `--map` | Include stac-map visualization URLs | `--map` |
+| `--prod` | Use production environment | `--prod` |
 
 ### Download Asset
 ```bash
@@ -58,6 +67,7 @@ Requires authentication. Common asset keys: `thumbnail`, `ortho_visual`, `ortho_
 |--------|-------------|
 | `--skip-quota-check` | Skip pre-download quota verification |
 | `--show-quota` | Display quota before and after download |
+| `--prod` | Use production environment |
 
 By default, the download command checks if you have sufficient quota before downloading.
 
