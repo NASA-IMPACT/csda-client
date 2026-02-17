@@ -170,6 +170,27 @@ class CsdaClient:
         )
         return [DownloadSummaryItem.model_validate(item) for item in response.json()]
 
+    def get_username(self) -> str:
+        """Get the authenticated user's username.
+
+        Retrieves the username from the download summary endpoint. Falls back
+        to parsing the verify response if no download history exists.
+
+        Returns:
+            The authenticated user's username.
+
+        Raises:
+            ValueError: If the username cannot be determined.
+        """
+        summary = self.download_summary()
+        if summary:
+            return summary[0].username
+        # Fallback: parse from verify response
+        verify_result = self.verify()
+        if isinstance(verify_result, str) and verify_result.startswith("Hello "):
+            return verify_result.split(",")[0].replace("Hello ", "").strip()
+        raise ValueError("Could not determine username from authentication")
+
     def get_quota_summary(self, username: str) -> QuotaSummary:
         """Gets a combined quota summary with limits and current usage.
 
