@@ -294,17 +294,11 @@ def download(
     from httpx import HTTPStatusError
 
     with get_authenticated_client(prod) as client:
-        # Get username from verify endpoint
+        # Get username for quota checks
         try:
-            verify_result = client.verify()
-            username = verify_result.get("uid") or verify_result.get("sub")
-            if not username:
-                typer.echo(
-                    "Error: Could not determine username from authentication", err=True
-                )
-                raise typer.Exit(1)
+            username = client.get_username()
         except Exception as e:
-            typer.echo(f"Authentication error: {e}", err=True)
+            typer.echo(f"Error: Could not determine username: {e}", err=True)
             raise typer.Exit(1)
 
         # Pre-download quota check
