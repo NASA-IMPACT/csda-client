@@ -8,13 +8,9 @@
       
       
       
-        <link rel="canonical" href="https://nasa-impact.github.io/csda-client/0.1.0/examples/tasking/">
+        <link rel="canonical" href="https://nasa-impact.github.io/csda-client/0.1.0/hooks/config/">
       
       
-        <link rel="prev" href="../search-and-download/">
-      
-      
-        <link rel="next" href="../../api/">
       
       
       <link rel="icon" href="../../img/CSDA_logo.png">
@@ -22,7 +18,7 @@
     
     
       
-        <title>Tasking - csda-client</title>
+        <title>Config - csda-client</title>
       
     
     
@@ -75,11 +71,6 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
-        
-        <a href="#tasking" class="md-skip">
-          Skip to content
-        </a>
-      
     </div>
     <div data-md-component="announce">
       
@@ -111,7 +102,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Tasking
+              Config
             
           </span>
         </div>
@@ -294,10 +285,8 @@
       
   
   
-    
   
   
-  
     
     
       
@@ -309,11 +298,11 @@
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
         
           
           <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -329,7 +318,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             Example notebooks
@@ -343,7 +332,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../search-and-download/" class="md-nav__link">
+      <a href="../../examples/search-and-download/" class="md-nav__link">
         
   
   
@@ -363,32 +352,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Tasking
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../examples/tasking/" class="md-nav__link">
         
   
   
@@ -399,62 +366,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#setup" class="md-nav__link">
-    <span class="md-ellipsis">
-      Setup
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#tasking-proposal" class="md-nav__link">
-    <span class="md-ellipsis">
-      Tasking proposal
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#tasking-requests" class="md-nav__link">
-    <span class="md-ellipsis">
-      Tasking requests
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#accessing-your-tasked-data" class="md-nav__link">
-    <span class="md-ellipsis">
-      Accessing your tasked data
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -592,6 +503,8 @@
   
   
 
+
+  <h1>Config</h1>
 
 <script>
 (function (global, factory) {
@@ -1314,34 +1227,13 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 </style>
 <!-- End of mermaid configuration --><div class="jupyter-wrapper">
 <div class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ff36f51c">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="tasking">Tasking<a class="anchor-link" href="#tasking">¶</a></h1><p><a href="https://www.earthdata.nasa.gov/about/csda">CSDA</a> supports tasking commercial satellites.
-"Tasking" is the process of submitting a request to a commercial satellite vendor to collect data over a specific area within a specific time window (and other possible, optional constraints).
-Tasking in CSDA is a two step process:</p>
-<ol>
-<li>Tasking proposal: A research user submits a proposal to task one or more satellites. The CSDA review board assesses the proposal and either approves or denies it.</li>
-<li>Tasking request: If their tasking proposal is approved, the user can then make one or more tasking requests against that proposal's (estimated) allocation. The data are collected by the commercial satellite vendor, delivered to CSDA, and made available for download by the user, as well as other CSDA users.</li>
-</ol>
-<p>The tasking workflow is <em>usually</em> done via the <a href="https://csdap.earthdata.nasa.gov/">CSDA frontend</a>, but this notebook demonstrates how you might do it programmatically.
-Note that Tasking is under active development, so we'll be demonstrating its usage against our <strong>staging</strong> environment.</p>
-<h2 id="setup">Setup<a class="anchor-link" href="#setup">¶</a></h2><p>For all of these operations, we'll need a <code>CsdaClient</code>.
-This client will log in to the <a href="https://urs.earthdata.nasa.gov">Earthdata</a> using either basic (username and password) or <a href="https://www.gnu.org/software/inetutils/manual/html_node/The-_002enetrc-file.html">netrc</a> authentication.
-In this example, we'll assume you've set up your <code>.netrc</code> file per <a href="https://nsidc.org/data/user-resources/help-center/creating-netrc-file-earthdata-login">the documentation</a>.</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=d8d34633">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=a1d56401">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [1]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="CodeMirror cm-s-jupyter">
 <div class="zeroclipboard-container">
 <clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-1">
@@ -1354,57 +1246,21 @@ In this example, we'll assume you've set up your <code>.netrc</code> file per <a
 </div>
 </clipboard-copy>
 </div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">datetime</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">tempfile</span><span class="w"> </span><span class="kn">import</span> <span class="n">NamedTemporaryFile</span>
-
-<span class="kn">import</span><span class="w"> </span><span class="nn">json_schema_for_humans.generate</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">tabulate</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">geojson_pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">Point</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">geojson_pydantic.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">Position2D</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">httpx</span><span class="w"> </span><span class="kn">import</span> <span class="n">NetRCAuth</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">Markdown</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">json_schema_for_humans.generation_configuration</span><span class="w"> </span><span class="kn">import</span> <span class="n">GenerationConfiguration</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">stapi_pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">OrderPayload</span>
-
-<span class="kn">from</span><span class="w"> </span><span class="nn">csda_client</span><span class="w"> </span><span class="kn">import</span> <span class="n">STAGING_URL</span><span class="p">,</span> <span class="n">CsdaClient</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">csda_client.models</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-    <span class="n">CreateTaskingProductRequest</span><span class="p">,</span>
-    <span class="n">CreateTaskingProposal</span><span class="p">,</span>
-    <span class="n">Grant</span><span class="p">,</span>
-    <span class="n">OrderParameters</span><span class="p">,</span>
-<span class="p">)</span>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">date</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-1">import datetime
-from tempfile import NamedTemporaryFile
-
-import json_schema_for_humans.generate
-import tabulate
-from geojson_pydantic import Point
-from geojson_pydantic.types import Position2D
-from httpx import NetRCAuth
-from IPython.display import Markdown
-from json_schema_for_humans.generation_configuration import GenerationConfiguration
-from stapi_pydantic import OrderPayload
-
-from csda_client import STAGING_URL, CsdaClient
-from csda_client.models import (
-    CreateTaskingProductRequest,
-    CreateTaskingProposal,
-    Grant,
-    OrderParameters,
-)</div>
+<div class="clipboard-copy-txt" id="cell-1">from datetime import date</div>
 </div>
 </div>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=fad8f3ba">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=9a973014">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [2]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="CodeMirror cm-s-jupyter">
 <div class="zeroclipboard-container">
 <clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-2">
@@ -1417,853 +1273,15 @@ from csda_client.models import (
 </div>
 </clipboard-copy>
 </div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">client</span> <span class="o">=</span> <span class="n">CsdaClient</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">NetRCAuth</span><span class="p">(),</span> <span class="n">url</span><span class="o">=</span><span class="n">STAGING_URL</span><span class="p">)</span>
-<span class="n">client</span><span class="o">.</span><span class="n">verify</span><span class="p">()</span>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">on_config</span><span class="p">(</span><span class="n">config</span><span class="p">):</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">copyright</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"&amp;copy; CC-By NASA, </span><span class="si">{</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span><span class="o">.</span><span class="n">year</span><span class="si">}</span><span class="s2">"</span>
+    <span class="k">return</span> <span class="n">config</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-2">client = CsdaClient.open(NetRCAuth(), url=STAGING_URL)
-client.verify()</div>
+<div class="clipboard-copy-txt" id="cell-2">def on_config(config):
+    config.copyright = f"© CC-By NASA, {date.today().year}"
+    return config</div>
 </div>
 </div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[2]:</div>
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>'Hello ceholden_devseed, you have a valid token!'</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=996db48c">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="tasking-proposal">Tasking proposal<a class="anchor-link" href="#tasking-proposal">¶</a></h2><p>To create a new proposal, we first need to assemble a few things:</p>
-<ul>
-<li>The <code>Grant</code> that we'll be associating with this proposal</li>
-<li>One or more vendor's products</li>
-</ul>
-<p>First, let's find what grants we have available.
-If you're running this notebook yourself, make sure to change this value to be your own Earthdata username.</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=3e59958e">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [3]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="CodeMirror cm-s-jupyter">
-<div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-3">
-<div>
-<span class="notice" hidden="">Copied!</span>
-<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
-<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-</clipboard-copy>
-</div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">grants</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Grant</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="k">for</span> <span class="n">grant</span> <span class="ow">in</span> <span class="n">client</span><span class="o">.</span><span class="n">profile</span><span class="p">(</span><span class="s2">"ceholden_devseed"</span><span class="p">)</span><span class="o">.</span><span class="n">grants</span><span class="p">:</span>
-    <span class="n">grants</span><span class="p">[</span><span class="n">grant</span><span class="o">.</span><span class="n">grant_number</span><span class="p">]</span> <span class="o">=</span> <span class="n">grant</span>
-    <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">grant</span><span class="o">.</span><span class="n">grant_number</span><span class="p">,</span> <span class="n">grant</span><span class="o">.</span><span class="n">start_date</span><span class="p">,</span> <span class="n">grant</span><span class="o">.</span><span class="n">end_date</span><span class="p">])</span>
-<span class="n">tabulate</span><span class="o">.</span><span class="n">tabulate</span><span class="p">(</span>
-    <span class="n">rows</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="p">[</span><span class="s2">"Grant number"</span><span class="p">,</span> <span class="s2">"Start date"</span><span class="p">,</span> <span class="s2">"End date"</span><span class="p">],</span> <span class="n">tablefmt</span><span class="o">=</span><span class="s2">"html"</span>
-<span class="p">)</span>
-</pre></div>
-<div class="clipboard-copy-txt" id="cell-3">rows = []
-grants: dict[str, Grant] = {}
-for grant in client.profile("ceholden_devseed").grants:
-    grants[grant.grant_number] = grant
-    rows.append([grant.grant_number, grant.start_date, grant.end_date])
-tabulate.tabulate(
-    rows, headers=["Grant number", "Start date", "End date"], tablefmt="html"
-)</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[3]:</div>
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
-<table>
-<thead>
-<tr><th>Grant number  </th><th>Start date  </th><th>End date  </th></tr>
-</thead>
-<tbody>
-<tr><td>NASA IMPACT   </td><td> </td><td>2027-10-28</td></tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=7eec3f16">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Now let's list the vendors and find all of them that have tasking enabled.</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=194214a3">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [4]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="CodeMirror cm-s-jupyter">
-<div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-4">
-<div>
-<span class="notice" hidden="">Copied!</span>
-<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
-<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-</clipboard-copy>
-</div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">vendors</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="k">for</span> <span class="n">vendor</span> <span class="ow">in</span> <span class="n">client</span><span class="o">.</span><span class="n">vendors</span><span class="p">():</span>
-    <span class="k">if</span> <span class="n">vendor</span><span class="o">.</span><span class="n">has_tasking</span><span class="p">:</span>
-        <span class="n">vendors</span><span class="p">[</span><span class="n">vendor</span><span class="o">.</span><span class="n">slug</span><span class="p">]</span> <span class="o">=</span> <span class="n">vendor</span>
-        <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">vendor</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">vendor</span><span class="o">.</span><span class="n">slug</span><span class="p">,</span> <span class="n">vendor</span><span class="o">.</span><span class="n">full_name</span><span class="p">])</span>
-<span class="n">tabulate</span><span class="o">.</span><span class="n">tabulate</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="p">[</span><span class="s2">"Id"</span><span class="p">,</span> <span class="s2">"Slug"</span><span class="p">,</span> <span class="s2">"Full name"</span><span class="p">],</span> <span class="n">tablefmt</span><span class="o">=</span><span class="s2">"html"</span><span class="p">)</span>
-</pre></div>
-<div class="clipboard-copy-txt" id="cell-4">rows = []
-vendors = {}
-for vendor in client.vendors():
-    if vendor.has_tasking:
-        vendors[vendor.slug] = vendor
-        rows.append([vendor.id, vendor.slug, vendor.full_name])
-tabulate.tabulate(rows, headers=["Id", "Slug", "Full name"], tablefmt="html")</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[4]:</div>
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
-<table>
-<thead>
-<tr><th style="text-align: right;">  Id</th><th>Slug        </th><th>Full name                  </th></tr>
-</thead>
-<tbody>
-<tr><td style="text-align: right;">  12</td><td>ghgsat      </td><td>GHGSat                     </td></tr>
-<tr><td style="text-align: right;">  17</td><td>capellaspace</td><td>Capella Space              </td></tr>
-<tr><td style="text-align: right;">  18</td><td>iceye       </td><td>ICEYE US                   </td></tr>
-<tr><td style="text-align: right;">  34</td><td>umbra       </td><td>Umbra Space                </td></tr>
-<tr><td style="text-align: right;">  45</td><td>maxar-legion</td><td>Maxar Technologies – Legion</td></tr>
-<tr><td style="text-align: right;">  47</td><td>airbus      </td><td>Airbus U.S.                </td></tr>
-<tr><td style="text-align: right;">  49</td><td>satellogic  </td><td>Satellogic Inc.            </td></tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=56cbfa94">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Let's create a proposal to task <a href="https://umbra.space/">Umbra Space</a>.
-We'll need to see what products are available.</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=31af052f">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [5]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="CodeMirror cm-s-jupyter">
-<div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-5">
-<div>
-<span class="notice" hidden="">Copied!</span>
-<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
-<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-</clipboard-copy>
-</div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">products</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="k">for</span> <span class="n">product</span> <span class="ow">in</span> <span class="n">client</span><span class="o">.</span><span class="n">products</span><span class="p">(</span><span class="n">vendor_id</span><span class="o">=</span><span class="n">vendors</span><span class="p">[</span><span class="s2">"umbra"</span><span class="p">]</span><span class="o">.</span><span class="n">id</span><span class="p">):</span>
-    <span class="n">products</span><span class="p">[</span><span class="n">product</span><span class="o">.</span><span class="n">slug</span><span class="p">]</span> <span class="o">=</span> <span class="n">product</span>
-    <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">product</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">product</span><span class="o">.</span><span class="n">slug</span><span class="p">,</span> <span class="n">product</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">product</span><span class="o">.</span><span class="n">long_desc</span><span class="p">])</span>
-<span class="n">tabulate</span><span class="o">.</span><span class="n">tabulate</span><span class="p">(</span>
-    <span class="n">rows</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="p">[</span><span class="s2">"Id"</span><span class="p">,</span> <span class="s2">"Slug"</span><span class="p">,</span> <span class="s2">"Name"</span><span class="p">,</span> <span class="s2">"Long description"</span><span class="p">],</span> <span class="n">tablefmt</span><span class="o">=</span><span class="s2">"html"</span>
-<span class="p">)</span>
-</pre></div>
-<div class="clipboard-copy-txt" id="cell-5">rows = []
-products = {}
-for product in client.products(vendor_id=vendors["umbra"].id):
-    products[product.slug] = product
-    rows.append([product.id, product.slug, product.name, product.long_desc])
-tabulate.tabulate(
-    rows, headers=["Id", "Slug", "Name", "Long description"], tablefmt="html"
-)</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[5]:</div>
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
-<table>
-<thead>
-<tr><th style="text-align: right;">  Id</th><th>Slug    </th><th>Name                            </th><th>Long description                                                                                                           </th></tr>
-</thead>
-<tbody>
-<tr><td style="text-align: right;">  72</td><td>CPHD    </td><td>Compensated Phase History Data  </td><td>CPHD product preserves raw SAR echo data before image formation, useful for advanced processing tasks                      </td></tr>
-<tr><td style="text-align: right;">  76</td><td>CSI-SIDD</td><td>Color Single Image SIDD         </td><td>It provides clarity and context to spot objects like buildings in a forest or cars moving on a field.                      </td></tr>
-<tr><td style="text-align: right;">  77</td><td>CSI     </td><td>Color Single Image TIFF         </td><td>A specialized Color Single Image TIFF product using a three-color (RGB) sub-aperture processing approach to enhance detail.</td></tr>
-<tr><td style="text-align: right;">  74</td><td>SIDD    </td><td>Sensor Independent Detected Data</td><td>SIDD offers ground-plane imagery optimized for viewing, omitting phase data but preserving detailed visual information.    </td></tr>
-<tr><td style="text-align: right;">  75</td><td>GEC     </td><td>Geocoded Ellipsoid Corrected    </td><td>This is a radiometrically corrected SAR image with map projection, allowing for easy viewing in common image applications. </td></tr>
-<tr><td style="text-align: right;">  73</td><td>SICD    </td><td>Sensor Independent Complex Data </td><td>SICD is a slant-plane image retaining SAR  phase and magnitude data                                                        </td></tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=b60bc1bb">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Let's ask for a "Color Single Image TIFF", referencing it by its <code>slug</code> value.
-Here's how to make a tasking proposal.</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=32270347">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [6]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="CodeMirror cm-s-jupyter">
-<div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-6">
-<div>
-<span class="notice" hidden="">Copied!</span>
-<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
-<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-</clipboard-copy>
-</div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">create_tasking_proposal</span> <span class="o">=</span> <span class="n">CreateTaskingProposal</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">"An excellent tasking proposal"</span><span class="p">,</span>
-    <span class="n">grant</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">grants</span><span class="o">.</span><span class="n">values</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>  <span class="c1"># select one grant from all of your grants</span>
-    <span class="n">products</span><span class="o">=</span><span class="p">[</span>
-        <span class="n">CreateTaskingProductRequest</span><span class="p">(</span><span class="n">product</span><span class="o">=</span><span class="n">products</span><span class="p">[</span><span class="s2">"CSI"</span><span class="p">]</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">n_proposed_granules</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-    <span class="p">],</span>
-    <span class="n">research_description</span><span class="o">=</span><span class="s2">"Very important things"</span><span class="p">,</span>
-    <span class="n">tasking_justification</span><span class="o">=</span><span class="s2">"It just won't be collected unless I ask for it"</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="n">tasking_proposal</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">create_tasking_proposal</span><span class="p">(</span>
-    <span class="n">create_tasking_proposal</span><span class="p">,</span> <span class="n">submit</span><span class="o">=</span><span class="kc">False</span>
-<span class="p">)</span>  <span class="c1"># We'll just submit this as a draft, since usually you'll be creating a proposal via the frontend</span>
-<span class="n">tasking_proposal</span>
-</pre></div>
-<div class="clipboard-copy-txt" id="cell-6">create_tasking_proposal = CreateTaskingProposal(
-    name="An excellent tasking proposal",
-    grant=list(grants.values())[0].id,  # select one grant from all of your grants
-    products=[
-        CreateTaskingProductRequest(product=products["CSI"].id, n_proposed_granules=42)
-    ],
-    research_description="Very important things",
-    tasking_justification="It just won't be collected unless I ask for it",
-)
-tasking_proposal = client.create_tasking_proposal(
-    create_tasking_proposal, submit=False
-)  # We'll just submit this as a draft, since usually you'll be creating a proposal via the frontend
-tasking_proposal</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[6]:</div>
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>TaskingProposal(id=2949, proposal_products=[], is_draft=True, grant=Grant(id=514, grant_number='NASA IMPACT', start_date=None, end_date=datetime.date(2027, 10, 28)), user='ceholden_devseed', name='An excellent tasking proposal', research_description='Very important things', tasking_justification="It just won't be collected unless I ask for it", final_decision_type='', decision_details=None)</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=59949b18">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="tasking-requests">Tasking requests<a class="anchor-link" href="#tasking-requests">¶</a></h2><p>Once a tasking proposal is approved by the review board, research users can submit tasking requests against that proposal.
-Each vendor has its own parameters that can be provided when creating a request.
-Let's see what parameters are available for Umbra Space.</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=d5f0f3a3">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [7]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="CodeMirror cm-s-jupyter">
-<div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-7">
-<div>
-<span class="notice" hidden="">Copied!</span>
-<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
-<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-</clipboard-copy>
-</div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">config</span> <span class="o">=</span> <span class="n">GenerationConfiguration</span><span class="p">(</span><span class="n">template_name</span><span class="o">=</span><span class="s2">"md"</span><span class="p">,</span> <span class="n">show_toc</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-
-<span class="n">order_parameters</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_tasking_order_parameters</span><span class="p">(</span>
-    <span class="s2">"umbra-sar"</span>
-<span class="p">)</span>  <span class="c1"># There's currently no way to derive this slug, you just have to know it: https://github.com/NASA-IMPACT/csda-project/issues/1682</span>
-<span class="k">with</span> <span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="s2">"w"</span><span class="p">,</span> <span class="n">delete_on_close</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">order_parameters</span><span class="o">.</span><span class="n">model_dump_json</span><span class="p">())</span>
-    <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-    <span class="n">display</span><span class="p">(</span>
-        <span class="n">Markdown</span><span class="p">(</span>
-            <span class="n">json_schema_for_humans</span><span class="o">.</span><span class="n">generate</span><span class="o">.</span><span class="n">generate_from_schema</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">)</span>
-        <span class="p">)</span>
-    <span class="p">)</span>
-</pre></div>
-<div class="clipboard-copy-txt" id="cell-7">config = GenerationConfiguration(template_name="md", show_toc=False)
-
-order_parameters = client.get_tasking_order_parameters(
-    "umbra-sar"
-)  # There's currently no way to derive this slug, you just have to know it: https://github.com/NASA-IMPACT/csda-project/issues/1682
-with NamedTemporaryFile("w", delete_on_close=False) as f:
-    f.write(order_parameters.model_dump_json())
-    f.close()
-    display(
-        Markdown(
-            json_schema_for_humans.generate.generate_from_schema(f.name, config=config)
-        )
-    )</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>== Generating tmprqzowgws ==
-== Generated tmprqzowgws in 0:00:00.016576 ==
-</pre>
-</div>
-</div>
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-OutputArea-output" data-mime-type="text/markdown" tabindex="0">
-<h1 id="umbra-order-parameters">Umbra Order Parameters<a class="anchor-link" href="#umbra-order-parameters">¶</a></h1><p><strong>Title:</strong> Umbra Order Parameters</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>object</code></td>
-</tr>
-<tr>
-<td><strong>Required</strong></td>
-<td>No</td>
-</tr>
-<tr>
-<td><strong>Additional properties</strong></td>
-<td>Not allowed</td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th>Property</th>
-<th>Pattern</th>
-<th>Type</th>
-<th>Deprecated</th>
-<th>Definition</th>
-<th>Title/Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>+ <a href="#proposal_id">proposal_id</a></td>
-<td>No</td>
-<td>integer</td>
-<td>No</td>
-<td>-</td>
-<td>Proposal Id</td>
-</tr>
-<tr>
-<td>+ <a href="#csda_product_ids">csda_product_ids</a></td>
-<td>No</td>
-<td>array of integer</td>
-<td>No</td>
-<td>-</td>
-<td>Csda Product Ids</td>
-</tr>
-<tr>
-<td>+ <a href="#task_name">task_name</a></td>
-<td>No</td>
-<td>string</td>
-<td>No</td>
-<td>-</td>
-<td>Task Name</td>
-</tr>
-<tr>
-<td>- <a href="#imaging_mode">imaging_mode</a></td>
-<td>No</td>
-<td>enum (of string)</td>
-<td>No</td>
-<td>In #/$defs/ImagingMode</td>
-<td>Imaging Mode</td>
-</tr>
-<tr>
-<td>- <a href="#grazing_angle_min">grazing_angle_min</a></td>
-<td>No</td>
-<td>integer</td>
-<td>No</td>
-<td>-</td>
-<td>Grazing Angle Min</td>
-</tr>
-<tr>
-<td>- <a href="#grazing_angle_max">grazing_angle_max</a></td>
-<td>No</td>
-<td>integer</td>
-<td>No</td>
-<td>-</td>
-<td>Grazing Angle Max</td>
-</tr>
-<tr>
-<td>- <a href="#multilook_factor">multilook_factor</a></td>
-<td>No</td>
-<td>enum (of integer)</td>
-<td>No</td>
-<td>In #/$defs/MultilookFactor</td>
-<td>Multilook Factor</td>
-</tr>
-</tbody>
-</table>
-<h2 id="1-property-umbra-order-parameters-proposal_id"><a name="proposal_id"></a>1. Property <code>Umbra Order Parameters &gt; proposal_id</code><a class="anchor-link" href="#1-property-umbra-order-parameters-proposal_id">¶</a></h2><p><strong>Title:</strong> Proposal Id</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>integer</code></td>
-</tr>
-<tr>
-<td><strong>Required</strong></td>
-<td>Yes</td>
-</tr>
-</tbody>
-</table>
-<h2 id="2-property-umbra-order-parameters-csda_product_ids"><a name="csda_product_ids"></a>2. Property <code>Umbra Order Parameters &gt; csda_product_ids</code><a class="anchor-link" href="#2-property-umbra-order-parameters-csda_product_ids">¶</a></h2><p><strong>Title:</strong> Csda Product Ids</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>array of integer</code></td>
-</tr>
-<tr>
-<td><strong>Required</strong></td>
-<td>Yes</td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>Array restrictions</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Min items</strong></td>
-<td>1</td>
-</tr>
-<tr>
-<td><strong>Max items</strong></td>
-<td>N/A</td>
-</tr>
-<tr>
-<td><strong>Items unicity</strong></td>
-<td>False</td>
-</tr>
-<tr>
-<td><strong>Additional items</strong></td>
-<td>False</td>
-</tr>
-<tr>
-<td><strong>Tuple validation</strong></td>
-<td>See below</td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th>Each item of this array must be</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="#csda_product_ids_items">csda_product_ids items</a></td>
-<td>-</td>
-</tr>
-</tbody>
-</table>
-<h3 id="21-umbra-order-parameters-csda_product_ids-csda_product_ids-items"><a name="csda_product_ids_items"></a>2.1. Umbra Order Parameters &gt; csda_product_ids &gt; csda_product_ids items<a class="anchor-link" href="#21-umbra-order-parameters-csda_product_ids-csda_product_ids-items">¶</a></h3><table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>integer</code></td>
-</tr>
-<tr>
-<td><strong>Required</strong></td>
-<td>No</td>
-</tr>
-</tbody>
-</table>
-<h2 id="3-property-umbra-order-parameters-task_name"><a name="task_name"></a>3. Property <code>Umbra Order Parameters &gt; task_name</code><a class="anchor-link" href="#3-property-umbra-order-parameters-task_name">¶</a></h2><p><strong>Title:</strong> Task Name</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>string</code></td>
-</tr>
-<tr>
-<td><strong>Required</strong></td>
-<td>Yes</td>
-</tr>
-</tbody>
-</table>
-<h2 id="4-property-umbra-order-parameters-imaging_mode"><a name="imaging_mode"></a>4. Property <code>Umbra Order Parameters &gt; imaging_mode</code><a class="anchor-link" href="#4-property-umbra-order-parameters-imaging_mode">¶</a></h2><p><strong>Title:</strong> Imaging Mode</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>enum (of string)</code></td>
-</tr>
-<tr>
-<td><strong>Required</strong></td>
-<td>No</td>
-</tr>
-<tr>
-<td><strong>Default</strong></td>
-<td><code>"SPOTLIGHT"</code></td>
-</tr>
-<tr>
-<td><strong>Defined in</strong></td>
-<td>#/$defs/ImagingMode</td>
-</tr>
-</tbody>
-</table>
-<p>Must be one of:</p>
-<ul>
-<li>"SPOTLIGHT"</li>
-<li>"SCAN"</li>
-</ul>
-<h2 id="5-property-umbra-order-parameters-grazing_angle_min"><a name="grazing_angle_min"></a>5. Property <code>Umbra Order Parameters &gt; grazing_angle_min</code><a class="anchor-link" href="#5-property-umbra-order-parameters-grazing_angle_min">¶</a></h2><p><strong>Title:</strong> Grazing Angle Min</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>integer</code></td>
-</tr>
-<tr>
-<td><strong>Required</strong></td>
-<td>No</td>
-</tr>
-<tr>
-<td><strong>Default</strong></td>
-<td><code>45</code></td>
-</tr>
-</tbody>
-</table>
-<h2 id="6-property-umbra-order-parameters-grazing_angle_max"><a name="grazing_angle_max"></a>6. Property <code>Umbra Order Parameters &gt; grazing_angle_max</code><a class="anchor-link" href="#6-property-umbra-order-parameters-grazing_angle_max">¶</a></h2><p><strong>Title:</strong> Grazing Angle Max</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>integer</code></td>
-</tr>
-<tr>
-<td><strong>Required</strong></td>
-<td>No</td>
-</tr>
-<tr>
-<td><strong>Default</strong></td>
-<td><code>65</code></td>
-</tr>
-</tbody>
-</table>
-<h2 id="7-property-umbra-order-parameters-multilook_factor"><a name="multilook_factor"></a>7. Property <code>Umbra Order Parameters &gt; multilook_factor</code><a class="anchor-link" href="#7-property-umbra-order-parameters-multilook_factor">¶</a></h2><p><strong>Title:</strong> Multilook Factor</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>enum (of integer)</code></td>
-</tr>
-<tr>
-<td><strong>Required</strong></td>
-<td>No</td>
-</tr>
-<tr>
-<td><strong>Default</strong></td>
-<td><code>1</code></td>
-</tr>
-<tr>
-<td><strong>Defined in</strong></td>
-<td>#/$defs/MultilookFactor</td>
-</tr>
-</tbody>
-</table>
-<p>Must be one of:</p>
-<ul>
-<li>1</li>
-<li>2</li>
-<li>4</li>
-<li>8</li>
-</ul>
-<hr/>
-<p>Generated using <a href="https://github.com/coveooss/json-schema-for-humans">json-schema-for-humans</a> on 2026-01-09 at 11:49:19 -0500</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=2c3e05fd">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>The required fields are:</p>
-<ul>
-<li><code>proposal_id</code>, which we have</li>
-<li><code>product_ids</code>, which we have from via our proposal</li>
-<li><code>task_name</code>, which we can specify</li>
-</ul>
-<p>Easy enough!
-Let's create a tasking request, which is also a <a href="https://github.com/stapi-spec/stapi-spec/tree/main/order#order-object">STAPI order</a>.
-We'll create the request for a time period starting tomorrow and ending in a week, over <a href="https://en.wikipedia.org/wiki/Longmont,_Colorado">Longmont, Colorado, USA</a>.</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=801825c6">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [8]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="CodeMirror cm-s-jupyter">
-<div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-8">
-<div>
-<span class="notice" hidden="">Copied!</span>
-<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
-<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-</clipboard-copy>
-</div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">order_parameters</span> <span class="o">=</span> <span class="n">OrderParameters</span><span class="o">.</span><span class="n">model_validate</span><span class="p">(</span>
-    <span class="p">{</span>
-        <span class="s2">"proposal_id"</span><span class="p">:</span> <span class="n">tasking_proposal</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
-        <span class="s2">"csda_product_ids"</span><span class="p">:</span> <span class="p">[</span><span class="n">products</span><span class="p">[</span><span class="s2">"CSI"</span><span class="p">]</span><span class="o">.</span><span class="n">id</span><span class="p">],</span>
-        <span class="s2">"task_name"</span><span class="p">:</span> <span class="s2">"My tasking proposal"</span><span class="p">,</span>
-    <span class="p">}</span>
-<span class="p">)</span>
-<span class="n">order_payload</span> <span class="o">=</span> <span class="n">OrderPayload</span><span class="p">(</span>
-    <span class="n">datetime</span><span class="o">=</span><span class="p">(</span>
-        <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">tz</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">timezone</span><span class="o">.</span><span class="n">utc</span><span class="p">)</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
-        <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">tz</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">timezone</span><span class="o">.</span><span class="n">utc</span><span class="p">)</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">7</span><span class="p">),</span>
-    <span class="p">),</span>
-    <span class="n">geometry</span><span class="o">=</span><span class="n">Point</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">"Point"</span><span class="p">,</span> <span class="n">coordinates</span><span class="o">=</span><span class="n">Position2D</span><span class="p">(</span><span class="o">-</span><span class="mf">105.1019</span><span class="p">,</span> <span class="mf">40.1672</span><span class="p">)),</span>
-    <span class="n">order_parameters</span><span class="o">=</span><span class="n">order_parameters</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="n">order</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">create_tasking_request</span><span class="p">(</span><span class="s2">"umbra-sar"</span><span class="p">,</span> <span class="n">order_payload</span><span class="p">)</span>
-<span class="n">order</span>
-</pre></div>
-<div class="clipboard-copy-txt" id="cell-8">order_parameters = OrderParameters.model_validate(
-    {
-        "proposal_id": tasking_proposal.id,
-        "csda_product_ids": [products["CSI"].id],
-        "task_name": "My tasking proposal",
-    }
-)
-order_payload = OrderPayload(
-    datetime=(
-        datetime.datetime.now(tz=datetime.timezone.utc) + datetime.timedelta(days=1),
-        datetime.datetime.now(tz=datetime.timezone.utc) + datetime.timedelta(days=7),
-    ),
-    geometry=Point(type="Point", coordinates=Position2D(-105.1019, 40.1672)),
-    order_parameters=order_parameters,
-)
-order = client.create_tasking_request("umbra-sar", order_payload)
-order</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[8]:</div>
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>Order(bbox=None, id='8ae9de56-414a-4526-a2cf-3f62d9e51ef6', type='Feature', stapi_type='Order', stapi_version='0.1.0', geometry=Point(bbox=None, type='Point', coordinates=Position2D(longitude=-105.1019, latitude=40.1672)), properties=OrderProperties(product_id='umbra-sar', created=datetime.datetime(2026, 1, 9, 16, 49, 30, 277970, tzinfo=TzInfo(UTC)), status=OrderStatus(timestamp=datetime.datetime(2026, 1, 9, 16, 49, 30, 277970, tzinfo=TzInfo(UTC)), status_code=&lt;OrderStatusCode.received: 'received'&gt;, reason_code=None, reason_text='Order initially created.', links=[]), search_parameters=OrderSearchParameters(datetime=(datetime.datetime(2026, 1, 10, 16, 49, 30, 157450, tzinfo=datetime.timezone.utc), datetime.datetime(2026, 1, 16, 16, 49, 30, 157465, tzinfo=datetime.timezone.utc)), geometry=Point(bbox=None, type='Point', coordinates=Position2D(longitude=-105.1019, latitude=40.1672)), filter=None), opportunity_properties={}, order_parameters={'proposal_id': 2949, 'csda_product_ids': [77], 'task_name': 'My tasking proposal', 'imaging_mode': 'SPOTLIGHT', 'grazing_angle_min': 45, 'grazing_angle_max': 65, 'multilook_factor': 1}, proposal_id=2949, username='ceholden_devseed', csda_product_ids=[77], estimated_granules=0, downloaded_granules=0, linked_granules=0), links=[Link(href=AnyUrl('https://csdap-staging.ds.io/api/v1/stapi/orders/8ae9de56-414a-4526-a2cf-3f62d9e51ef6'), rel='self', type=None, title=None, method=None, headers=None, body=None), Link(href=AnyUrl('https://csdap-staging.ds.io/api/v1/stapi/orders/8ae9de56-414a-4526-a2cf-3f62d9e51ef6/statuses'), rel='monitor', type=None, title=None, method=None, headers=None, body=None)])</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=c0dea6d9">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>After a tasking request is submitted  it will be vetted, first by an automatic system and then by CSDA Operations.
-If it's valid, it will be submitted to the vendor.
-When the tasking request is fulfilled, CSDA will notify the research user.
-When data related to the tasking request is delivered, CSDA will catalog it and make it accessible for download.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=62c25080">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="accessing-your-tasked-data">Accessing your tasked data<a class="anchor-link" href="#accessing-your-tasked-data">¶</a></h2><p>TODO</p>
 </div>
 </div>
 </div>
@@ -2271,10 +1289,6 @@ When data related to the tasking request is delivered, CSDA will catalog it and 
 </div> <!-- jp-Notebook -->
 </div> <!-- jupyter-wrapper -->
 
-        <style>
-        ['pre { line-height: 125%; }\ntd.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }\nspan.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }\ntd.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }\nspan.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }\n.highlight-ipynb .hll { background-color: var(--jp-cell-editor-active-background) }\n.highlight-ipynb { background: var(--jp-cell-editor-background); color: var(--jp-mirror-editor-variable-color) }\n.highlight-ipynb .c { color: var(--jp-mirror-editor-comment-color); font-style: italic } /* Comment */\n.highlight-ipynb .err { color: var(--jp-mirror-editor-error-color) } /* Error */\n.highlight-ipynb .k { color: var(--jp-mirror-editor-keyword-color); font-weight: bold } /* Keyword */\n.highlight-ipynb .o { color: var(--jp-mirror-editor-operator-color); font-weight: bold } /* Operator */\n.highlight-ipynb .p { color: var(--jp-mirror-editor-punctuation-color) } /* Punctuation */\n.highlight-ipynb .ch { color: var(--jp-mirror-editor-comment-color); font-style: italic } /* Comment.Hashbang */\n.highlight-ipynb .cm { color: var(--jp-mirror-editor-comment-color); font-style: italic } /* Comment.Multiline */\n.highlight-ipynb .cp { color: var(--jp-mirror-editor-comment-color); font-style: italic } /* Comment.Preproc */\n.highlight-ipynb .cpf { color: var(--jp-mirror-editor-comment-color); font-style: italic } /* Comment.PreprocFile */\n.highlight-ipynb .c1 { color: var(--jp-mirror-editor-comment-color); font-style: italic } /* Comment.Single */\n.highlight-ipynb .cs { color: var(--jp-mirror-editor-comment-color); font-style: italic } /* Comment.Special */\n.highlight-ipynb .kc { color: var(--jp-mirror-editor-keyword-color); font-weight: bold } /* Keyword.Constant */\n.highlight-ipynb .kd { color: var(--jp-mirror-editor-keyword-color); font-weight: bold } /* Keyword.Declaration */\n.highlight-ipynb .kn { color: var(--jp-mirror-editor-keyword-color); font-weight: bold } /* Keyword.Namespace */\n.highlight-ipynb .kp { color: var(--jp-mirror-editor-keyword-color); font-weight: bold } /* Keyword.Pseudo */\n.highlight-ipynb .kr { color: var(--jp-mirror-editor-keyword-color); font-weight: bold } /* Keyword.Reserved */\n.highlight-ipynb .kt { color: var(--jp-mirror-editor-keyword-color); font-weight: bold } /* Keyword.Type */\n.highlight-ipynb .m { color: var(--jp-mirror-editor-number-color) } /* Literal.Number */\n.highlight-ipynb .s { color: var(--jp-mirror-editor-string-color) } /* Literal.String */\n.highlight-ipynb .ow { color: var(--jp-mirror-editor-operator-color); font-weight: bold } /* Operator.Word */\n.highlight-ipynb .pm { color: var(--jp-mirror-editor-punctuation-color) } /* Punctuation.Marker */\n.highlight-ipynb .w { color: var(--jp-mirror-editor-variable-color) } /* Text.Whitespace */\n.highlight-ipynb .mb { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Bin */\n.highlight-ipynb .mf { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Float */\n.highlight-ipynb .mh { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Hex */\n.highlight-ipynb .mi { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Integer */\n.highlight-ipynb .mo { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Oct */\n.highlight-ipynb .sa { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Affix */\n.highlight-ipynb .sb { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Backtick */\n.highlight-ipynb .sc { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Char */\n.highlight-ipynb .dl { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Delimiter */\n.highlight-ipynb .sd { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Doc */\n.highlight-ipynb .s2 { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Double */\n.highlight-ipynb .se { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Escape */\n.highlight-ipynb .sh { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Heredoc */\n.highlight-ipynb .si { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Interpol */\n.highlight-ipynb .sx { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Other */\n.highlight-ipynb .sr { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Regex */\n.highlight-ipynb .s1 { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Single */\n.highlight-ipynb .ss { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Symbol */\n.highlight-ipynb .il { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Integer.Long */']
-        </style>
-        
 
 
 
@@ -2305,44 +1319,6 @@ When data related to the tasking request is delivered, CSDA will catalog it and 
       
         <footer class="md-footer">
   
-    
-      
-      <nav class="md-footer__inner md-grid" aria-label="Footer" >
-        
-          
-          <a href="../search-and-download/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Searching and downloading CSDA data">
-            <div class="md-footer__button md-icon">
-              
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
-            </div>
-            <div class="md-footer__title">
-              <span class="md-footer__direction">
-                Previous
-              </span>
-              <div class="md-ellipsis">
-                Searching and downloading CSDA data
-              </div>
-            </div>
-          </a>
-        
-        
-          
-          <a href="../../api/" class="md-footer__link md-footer__link--next" aria-label="Next: API">
-            <div class="md-footer__title">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              <div class="md-ellipsis">
-                API
-              </div>
-            </div>
-            <div class="md-footer__button md-icon">
-              
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
-            </div>
-          </a>
-        
-      </nav>
     
   
   <div class="md-footer-meta md-typeset">
