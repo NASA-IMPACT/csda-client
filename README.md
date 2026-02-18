@@ -2,7 +2,7 @@
 
 [![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/nasa-impact/csda-client/ci.yaml?style=for-the-badge)](https://github.com/NASA-IMPACT/csda-client/actions/workflows/ci.yaml)
 
-An API client for [CSDA](https://csdap.earthdata.nasa.gov/).
+An Python client for interacting with [CSDA](https://csdap.earthdata.nasa.gov/) program APIs.
 
 ## Usage
 
@@ -38,7 +38,8 @@ EARTHDATA_USERNAME=your-user-name
 EARTHDATA_PASSWORD=your-password
 ```
 
-We also allow `.netrc` authentication, so set that up per [these instructions](https://nsidc.org/data/user-resources/help-center/creating-netrc-file-earthdata-login)
+We also allow `.netrc` authentication, so set that up per [these instructions](https://nsidc.org/data/user-resources/help-center/creating-netrc-file-earthdata-login).
+
 Then:
 
 ```sh
