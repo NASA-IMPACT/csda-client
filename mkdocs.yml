@@ -1,7 +1,6 @@
 site_name: csda-client
 site_url: https://nasa-impact.github.io/csda-client/
 repo_url: https://github.com/NASA-IMPACT/csda-client
-copyright:
 hooks:
   - docs/hooks/config.py
 
