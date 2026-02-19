@@ -49,7 +49,7 @@ class CsdaClient:
     """
 
     @classmethod
-    def open(cls, auth: Auth, url: str = PRODUCTION_URL) -> CsdaClient:
+    def open[T: CsdaClient](cls: type[T], auth: Auth, url: str = PRODUCTION_URL) -> T:
         """Opens and logs in a CSDA client.
 
         Args:
@@ -60,7 +60,7 @@ class CsdaClient:
         Returns:
             A logged-in client.
         """
-        client = CsdaClient(url)
+        client = cls(url)
         client.login(auth)
         return client
 
