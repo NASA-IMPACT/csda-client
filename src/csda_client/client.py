@@ -4,7 +4,7 @@ import logging
 from contextlib import contextmanager
 from pathlib import Path
 from types import TracebackType
-from typing import Any, Iterator, Literal
+from typing import Any, Iterator, Literal, Self
 from urllib.parse import parse_qs, urljoin, urlparse
 
 from httpx import Auth, Client, HTTPStatusError, Response
@@ -49,7 +49,7 @@ class CsdaClient:
     """
 
     @classmethod
-    def open[T: CsdaClient](cls: type[T], auth: Auth, url: str = PRODUCTION_URL) -> T:
+    def open(cls, auth: Auth, url: str = PRODUCTION_URL) -> Self:
         """Opens and logs in a CSDA client.
 
         Args:
