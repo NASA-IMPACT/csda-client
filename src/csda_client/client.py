@@ -49,36 +49,42 @@ class CsdaClient:
     """
 
     @classmethod
-    def open(cls, auth: Auth, url: str = PRODUCTION_URL) -> Self:
+    def open(
+        cls, auth: Auth, url: str = PRODUCTION_URL, httpx_client: Client | None = None
+    ) -> Self:
         """Opens and logs in a CSDA client.
 
         Args:
             auth: A [`httpx.Auth`](https://www.python-httpx.org/advanced/authentication/) that will be used for [Earthdata login](https://urs.earthdata.nasa.gov).
                 We recommend either `BasicAuth` or `NetrcAuth`.
             url: The CSDA instance to use for queries.
+            httpx_client: Optionally, inject a `httpx.Client` to use for making requests.
 
         Returns:
             A logged-in client.
         """
-        client = cls(url)
+        client = cls(url, httpx_client=httpx_client)
         client.login(auth)
         return client
 
-    def __init__(self, url: str = PRODUCTION_URL) -> None:
+    def __init__(
+        self, url: str = PRODUCTION_URL, httpx_client: Client | None = None
+    ) -> None:
         """Creates a new, un-logged-in CSDA client.
 
         Once you've created a client, use [login][csda_client.CsdaClient.login] to get an auth token.
 
         Args:
             url: The CSDA instance to use for queries.
+            httpx_client: Optionally, inject a `httpx.Client` to use for making requests.
 
         Returns:
             An un-logged-in client.
         """
-        self.client = Client()
+        self.client = httpx_client or Client()
         self.url = url
 
-    def __enter__(self) -> CsdaClient:
+    def __enter__(self) -> Self:
         return self
 
     def __exit__(
