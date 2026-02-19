@@ -954,7 +954,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">open</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">auth</span><span class="p">:</span> <span class="n">Auth</span><span class="p">,</span> <span class="n">url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">PRODUCTION_URL</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CsdaClient</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">open</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">auth</span><span class="p">:</span> <span class="n">Auth</span><span class="p">,</span> <span class="n">url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">PRODUCTION_URL</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Opens and logs in a CSDA client.</span>
 
 <span class="sd">        Args:</span>
@@ -965,7 +965,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            A logged-in client.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">client</span> <span class="o">=</span> <span class="n">CsdaClient</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+        <span class="n">client</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
         <span class="n">client</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="n">auth</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">client</span>
 
@@ -1306,7 +1306,7 @@
   </span>
 
 </h3>
-<div class="doc-signature highlight"><pre><span></span><code><span class="nf">open</span><span class="p">(</span><span class="n">auth</span><span class="p">:</span> <span class="n">Auth</span><span class="p">,</span> <span class="n">url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">PRODUCTION_URL</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CsdaClient</span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">open</span><span class="p">(</span><span class="n">auth</span><span class="p">:</span> <span class="n">Auth</span><span class="p">,</span> <span class="n">url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">PRODUCTION_URL</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -1378,7 +1378,7 @@ We recommend either <code>BasicAuth</code> or <code>NetrcAuth</code>.</p>
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><a class="autorefs autorefs-internal" title="CsdaClient (csda_client.client.CsdaClient)" href="#csda_client.CsdaClient">CsdaClient</a></code>
+                  <code><a class="autorefs autorefs-external" title="typing.Self" href="https://docs.python.org/3/library/typing.html#typing.Self">Self</a></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1407,7 +1407,7 @@ We recommend either <code>BasicAuth</code> or <code>NetrcAuth</code>.</p>
 <span class="normal">63</span>
 <span class="normal">64</span>
 <span class="normal">65</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@classmethod</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">open</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">auth</span><span class="p">:</span> <span class="n">Auth</span><span class="p">,</span> <span class="n">url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">PRODUCTION_URL</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CsdaClient</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">open</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">auth</span><span class="p">:</span> <span class="n">Auth</span><span class="p">,</span> <span class="n">url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">PRODUCTION_URL</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Opens and logs in a CSDA client.</span>
 
 <span class="sd">    Args:</span>
@@ -1418,7 +1418,7 @@ We recommend either <code>BasicAuth</code> or <code>NetrcAuth</code>.</p>
 <span class="sd">    Returns:</span>
 <span class="sd">        A logged-in client.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">client</span> <span class="o">=</span> <span class="n">CsdaClient</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="n">client</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
     <span class="n">client</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="n">auth</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">client</span>
 </code></pre></div></td></tr></table></div>
