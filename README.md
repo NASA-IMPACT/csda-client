@@ -14,8 +14,10 @@ See our [docs](https://nasa-impact.github.io/csda-client) for more.
 
 ## Issues
 
-Please open [Github issues](https://github.com/NASA-IMPACT/csda-client/issues) with any bug reports, feature requests, and questions. At this time, only contributions from CSDA team members will be accepted and merged. You may also reach out to the CSDA Operations team at csda-support@nasa.gov.
+Please open [Github issues](https://github.com/NASA-IMPACT/csda-client/issues) with any bug reports, feature requests, and questions. You may also reach out to the CSDA Operations team at csda-support@nasa.gov.  
 
+At this time, only pull requests from CSDA team members will be accepted and merged.  
+ 
 ## Development
 
 Get [uv](https://docs.astral.sh/uv/getting-started/installation/).
