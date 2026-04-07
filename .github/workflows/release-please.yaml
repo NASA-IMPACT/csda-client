@@ -46,7 +46,7 @@ jobs:
         with:
           token: ${{ steps.generate-token.outputs.token }}
           ref: ${{ fromJSON(needs.release-please.outputs.prs)[0].headBranchName }}
-      - uses: astral-sh/setup-uv@v7
+      - uses: astral-sh/setup-uv@37802adc94f370d6bfd71619e3f0bf239e1f3b78 # v7.6.0
       - name: Sync uv
         run: uv sync
       - name: Commit and push changes
