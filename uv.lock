@@ -513,7 +513,7 @@ wheels = [
 
 [[package]]
 name = "csda-client"
-version = "0.1.0"
+version = "26.2.6.post0"
 source = { editable = "." }
 dependencies = [
     { name = "httpx" },
