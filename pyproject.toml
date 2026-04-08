@@ -1,6 +1,6 @@
 [project]
 name = "csda-client"
-version = "0.1.0"
+version = "26.2.6-0"
 description = "API client for CSDA services"
 readme = "README.md"
 requires-python = ">=3.12"
