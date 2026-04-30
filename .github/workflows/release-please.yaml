@@ -24,7 +24,7 @@ jobs:
           private-key: ${{ secrets.CSDA_RELEASE_BOT_PRIVATE_KEY }}
       - name: CSDA Version
         id: csda-version
-        uses: NASA-IMPACT/csda-version@156bdc00a784eee7ccd5ccfc7bab0fc75480bcb4 #v0.2.6
+        uses: NASA-IMPACT/csda-version@8e2b0c819da49a0cdb3b26f2fdc8dbb442f6fb0a #v0.2.8
       - uses: googleapis/release-please-action@16a9c90856f42705d54a6fda1823352bdc62cf38 # v4
         id: release-please
         with:
