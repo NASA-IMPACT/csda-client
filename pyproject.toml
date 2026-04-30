@@ -35,7 +35,7 @@ docs = [
     "mkdocstrings[python]>=0.30.0",
 ]
 notebook = [
-    "jupyterlab>=4.5.1",
+    "jupyterlab>=4.5.7",
 ]
 
 [tool.uv]
