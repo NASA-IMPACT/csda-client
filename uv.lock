@@ -573,7 +573,7 @@ docs = [
     { name = "humanize", specifier = ">=4.12.3" },
     { name = "ipykernel", specifier = ">=6.29.5" },
     { name = "jinja2", specifier = ">=3.1.6" },
-    { name = "json-schema-for-humans", specifier = ">=1.4.1" },
+    { name = "json-schema-for-humans", specifier = ">=1.5.1" },
     { name = "mike", specifier = ">=2.1.3" },
     { name = "mkdocs-jupyter", specifier = ">=0.25.1" },
     { name = "mkdocs-material", specifier = ">=9.6.18" },
@@ -972,7 +972,7 @@ wheels = [
 
 [[package]]
 name = "json-schema-for-humans"
-version = "1.4.1"
+version = "1.5.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "click" },
@@ -984,9 +984,9 @@ dependencies = [
     { name = "pyyaml" },
     { name = "requests" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/f7/a8/0abe64f45fe0e923fbb15785ada165d563d91ca03837929a94b9f4e14616/json_schema_for_humans-1.4.1.tar.gz", hash = "sha256:ca235f832c7fa58e5145af505472915fbe611deef25659db6d40d44b308d936d", size = 256723, upload-time = "2025-05-09T16:21:12.343Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/e8/4c/83fc5c339cabfc0d14717c843f506ad2e70a197b6f2c139bb7b2a27e368b/json_schema_for_humans-1.5.1.tar.gz", hash = "sha256:a43023f6c1b99f8e75126cc824c22992d8f55e941060aa3fddfc7c38de3cb973", size = 256753, upload-time = "2025-11-21T14:55:54.536Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/6f/c8/f6cb4a9ae309a6d960ac915a607b3ea4491544709aed473bc50d9cac1be7/json_schema_for_humans-1.4.1-py3-none-any.whl", hash = "sha256:c6fe620a46a8d4be0e0efb19be1dc13ca6b25b32cf811a4a3eeb411b9ef689a8", size = 284969, upload-time = "2025-05-09T16:21:11.055Z" },
+    { url = "https://files.pythonhosted.org/packages/a1/97/1e9a730a7d7674d6022e9eaabff9218ba096b310cef712c004854248a64b/json_schema_for_humans-1.5.1-py3-none-any.whl", hash = "sha256:6b5bb65c8ccfb46219352f3da32312c9d904c08790bb96f43f109338c2141478", size = 285017, upload-time = "2025-11-21T14:55:53.26Z" },
 ]
 
 [[package]]
