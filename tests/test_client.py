@@ -4,7 +4,19 @@ import httpx
 import pytest
 from pydantic import SecretStr
 
-from csda_client.client import CsdaClient
+from csda_client.client import USER_AGENT, CsdaClient
+
+
+def test_default_user_agent() -> None:
+    csda_client = CsdaClient()
+    assert csda_client.client.headers["User-Agent"] == USER_AGENT
+    assert csda_client.client.headers["User-Agent"].startswith("csda-client/")
+
+
+def test_user_agent_set_on_injected_httpx_client() -> None:
+    httpx_client = httpx.Client()
+    csda_client = CsdaClient(httpx_client=httpx_client)
+    assert csda_client.client.headers["User-Agent"] == USER_AGENT
 
 
 @pytest.mark.with_earthdata_login
