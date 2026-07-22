@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import logging
 from contextlib import contextmanager
+from importlib.metadata import PackageNotFoundError, version
 from pathlib import Path
 from types import TracebackType
 from typing import Any, Iterator, Literal, Self
@@ -21,6 +22,13 @@ from .models import (
 )
 
 logger = logging.getLogger(__name__)
+
+try:
+    __version__ = version("csda-client")
+except PackageNotFoundError:
+    __version__ = "unknown"
+
+USER_AGENT = f"csda-client/{__version__}"
 
 Method = Literal["GET"] | Literal["POST"]
 """The HTTP methods supported by CSDA endpoints."""
@@ -82,6 +90,7 @@ class CsdaClient:
             An un-logged-in client.
         """
         self.client = httpx_client or Client()
+        self.client.headers["User-Agent"] = USER_AGENT
         self.url = url
 
     def __enter__(self) -> Self:
