@@ -11,6 +11,7 @@ python -m pip install git+https://github.com/nasa-impact/csda-client
 ```
 
 See our [docs](https://nasa-impact.github.io/csda-client) for more.
+We use [semantic versioning](https://semver.org/) for our releases.
 
 ## Issues
 
