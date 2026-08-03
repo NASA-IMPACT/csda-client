@@ -16,7 +16,7 @@ jobs:
     outputs:
       prs: ${{ steps.release-please.outputs.prs }}
     steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
         id: generate-token
         with:
@@ -24,7 +24,7 @@ jobs:
           private-key: ${{ secrets.CSDA_RELEASE_BOT_PRIVATE_KEY }}
       - name: CSDA Version
         id: csda-version
-        uses: NASA-IMPACT/csda-version@c20f66ad9fcb3481d3d4d948e6b046b6d5c6cc0b #v0.4.1
+        uses: NASA-IMPACT/csda-version@32a90457c6ba88620c85a0d9344647a95754c286 #v0.4.3
       - uses: googleapis/release-please-action@45996ed1f6d02564a971a2fa1b5860e934307cf7 # v5.0.0
         id: release-please
         with:
@@ -42,11 +42,11 @@ jobs:
           app-id: ${{ secrets.CSDA_RELEASE_BOT_CLIENT_ID }}
           private-key: ${{ secrets.CSDA_RELEASE_BOT_PRIVATE_KEY }}
       - name: Checkout PR branch
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           token: ${{ steps.generate-token.outputs.token }}
           ref: ${{ fromJSON(needs.release-please.outputs.prs)[0].headBranchName }}
-      - uses: astral-sh/setup-uv@fac544c07dec837d0ccb6301d7b5580bf5edae39 # v8.2.0
+      - uses: astral-sh/setup-uv@11f9893b081a58869d3b5fccaea48c9e9e46f990 # v8.3.2
       - name: Sync uv
         run: uv sync
       - name: Commit and push changes
