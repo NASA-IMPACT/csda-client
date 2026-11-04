@@ -22,7 +22,7 @@ class Profile(BaseModel):
     updated_at: datetime.datetime
     research_area: str
     justification: str
-    nda_signed: bool
+    nda_signed: bool | None = None
     reduced_latency_data: bool
     reduced_latency_justification: str
     supporting_institution: str
